@@ -7,6 +7,7 @@ import type { Footer } from '@/payload-types'
 import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { CMSLink } from '@/components/Link'
 import { Logo } from '@/components/Logo/Logo'
+import Image from 'next/image'
 
 export async function Footer() {
   const footerData: Footer = await getCachedGlobal('footer', 1)()
@@ -14,17 +15,46 @@ export async function Footer() {
   const navItems = footerData?.navItems || []
 
   return (
-    <footer className="mt-auto border-t border-border bg-black dark:bg-card text-white">
-      <div className="container py-8 gap-8 flex flex-col md:flex-row md:justify-between">
-        <Link className="flex items-center" href="/">
-          <Logo />
-        </Link>
-
-        <div className="flex flex-col-reverse items-start md:flex-row gap-4 md:items-center">
-          <ThemeSelector />
-          <nav className="flex flex-col md:flex-row gap-4">
-            {navItems.map(({ link }, i) => {
-              return <CMSLink className="text-white" key={i} {...link} />
+    <footer className="mt-auto bg-primary-green py-[49px] px-[56.5px]">
+      <div className="flex">
+        <div>
+          <Link href="/">
+            <Logo
+              loading="eager"
+              priority="high"
+              className="invert dark:invert-0 h-[183px] w-[66px]"
+            />
+          </Link>
+          <Link
+            href={'https://www.instagram.com/houseofkaia'}
+            target="_blank"
+            className="flex mt-3 space-x-[5px] text-creme text-[13px] font-quicksand leading-[19.5px] items-center"
+          >
+            <Image src={'/icons/instagram.svg'} alt="Instagram" width={28} height={28} />
+            <span>@houseofkaia</span>
+          </Link>
+          <Link
+            href={'mailto:studio@houseofkaiajewellery.com'}
+            target="_blank"
+            className="flex mt-3 space-x-[5px] text-creme text-[13px] font-quicksand leading-[19.5px] items-center"
+          >
+            <Image src={'/icons/mail.svg'} alt="Email" width={28} height={28} />
+            <span>studio@houseofkaiajewellery.com</span>
+          </Link>
+        </div>
+        <div className='ml-auto'>
+          <h1 className='text-white text-base font-libre-baskerville leading-[24px]'>House of Kaia</h1>
+          <nav className="flex flex-col mt-6 space-y-6">
+            {navItems.slice(0,3).map(({ link }, i) => {
+              return <CMSLink key={i} {...link} appearance="link" className='text-white text-base font-quicksand font-medium leading-[24px]' />
+            })}
+          </nav>
+        </div>
+        <div className='ml-[107px]'>
+          <h1 className='text-white text-base font-libre-baskerville leading-[24px]'>Links</h1>
+          <nav className="flex flex-col mt-6 space-y-6">
+            {navItems.slice(3).map(({ link }, i) => {
+              return <CMSLink key={i} {...link} appearance="link" className='text-white text-base font-quicksand leading-[24px]' />
             })}
           </nav>
         </div>

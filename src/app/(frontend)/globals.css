@@ -1,6 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "@fontsource/inter/400.css"; /* 500 = Medium */
+@import "@fontsource/inter/500.css"; /* 500 = Medium */
+@import "@fontsource/quicksand/400.css"; /* 400 = Regular */
+@import "@fontsource/libre-baskerville/400.css"; /* 400 = Regular */
 
 @layer base {
   h1,
@@ -47,11 +51,15 @@
     --success: 196 52% 74%;
     --warning: 34 89% 85%;
     --error: 10 100% 86%;
+
+    --font-inter-medium: 'Inter Medium', sans-serif;
+    --font-quicksand-regular: 'Quicksand Regular', sans-serif;
   }
 
   [data-theme='dark'] {
-    --background: 0 0% 0%;
-    --foreground: 210 40% 98%;
+    --primary-green: #123724;
+    --background: #1E1C1C;
+    --creme: #E7E3E0;
 
     --card: 0 0% 4%;
     --card-foreground: 210 40% 98%;
@@ -89,15 +97,17 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground min-h-[100vh] flex flex-col;
+    @apply bg-background min-h-[100vh] flex flex-col;
   }
 }
 
 html {
   opacity: 0;
+  font-family: "Inter";
 }
 
 html[data-theme='dark'],
 html[data-theme='light'] {
   opacity: initial;
 }
+

@@ -6,7 +6,7 @@ import type { ContentBlock as ContentBlockProps } from '@/payload-types'
 
 import { CMSLink } from '../../components/Link'
 
-export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
+export const ContentBigBlock: React.FC<ContentBlockProps> = (props) => {
   const { columns } = props
 
   const colsSpanClasses = {
@@ -17,7 +17,7 @@ export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
   }
 
   return (
-    <div className="my-[87px]">
+    <div className="my-[50px]">
       <div className="grid grid-cols-4 lg:grid-cols-12 gap-y-8 gap-x-16">
         {columns &&
           columns.length > 0 &&
@@ -31,7 +31,7 @@ export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
                 })}
                 key={index}
               >
-                {richText && <RichText data={richText} className='text-center lg:w-[875px] lg:text-[26px] leading-[150%] font-quicksand' enableGutter={false} />}
+                {richText && <RichText data={richText} className='text-center lg:w-[1114px] lg:text-[45px] leading-[100%] font-libre-baskerville font-normal' enableGutter={false} />}
 
                 {enableLink && <CMSLink {...link} />}
               </div>

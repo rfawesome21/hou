@@ -25,26 +25,9 @@ const config = {
     'bg-success/30',
     'border-warning',
     'bg-warning/30',
+    'bg-primary-green',
   ],
   theme: {
-    container: {
-      center: true,
-      padding: {
-        '2xl': '2rem',
-        DEFAULT: '1rem',
-        lg: '2rem',
-        md: '2rem',
-        sm: '1rem',
-        xl: '2rem',
-      },
-      screens: {
-        '2xl': '86rem',
-        lg: '64rem',
-        md: '48rem',
-        sm: '40rem',
-        xl: '80rem',
-      },
-    },
     extend: {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -56,11 +39,12 @@ const config = {
         sm: 'calc(var(--radius) - 4px)',
       },
       colors: {
+        'primary-green': '#123724',
         accent: {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
         },
-        background: 'hsl(var(--background))',
+        background: 'var(--background)',
         border: 'hsla(var(--border))',
         card: {
           DEFAULT: 'hsl(var(--card))',
@@ -70,7 +54,7 @@ const config = {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
         },
-        foreground: 'hsl(var(--foreground))',
+        creme: 'var(--creme)',
         input: 'hsl(var(--input))',
         muted: {
           DEFAULT: 'hsl(var(--muted))',
@@ -96,6 +80,9 @@ const config = {
       fontFamily: {
         mono: ['var(--font-geist-mono)'],
         sans: ['var(--font-geist-sans)'],
+        'inter-medium': ['"Inter Medium"', 'sans-serif'],
+        'quicksand': ['Quicksand', 'sans-serif'],
+        'libre-baskerville': ['"Libre Baskerville"', 'serif'],
       },
       keyframes: {
         'accordion-down': {

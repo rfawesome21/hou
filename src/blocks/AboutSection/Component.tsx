@@ -1,0 +1,115 @@
+import RichText from '@/components/RichText'
+
+interface AboutSectionProps {
+  leftText: any
+  rightText: any
+  backgroundColor?: string
+  headingSize?: string
+  showCurve?: boolean
+  marginTop?: string
+  paddingTop?: string
+  gapSize?: string // New prop for gap
+  button?: {
+    text: string
+    internalPage?: {
+      slug: string
+    }
+    style?: 'primary' | 'secondary'
+  }
+}
+
+export const aboutSectionBlock: React.FC<AboutSectionProps> = ({
+  leftText,
+  rightText,
+  backgroundColor = 'white',
+  headingSize = 'text-[64px]',
+  showCurve = true,
+  marginTop = 'default',
+  paddingTop = 'default',
+  gapSize = 'default', // default gap
+  button,
+}) => {
+  // Background mapping
+  const bgClass =
+    backgroundColor === 'black' ? 'bg-[#1e1c1c]' : backgroundColor === 'creme' ? 'bg-creme' : 'bg-creme'
+
+  // Margin top mapping
+  const marginTopClass =
+    marginTop === 'none'
+      ? 'mt-0'
+      : marginTop === 'large'
+        ? 'mt-[200px]'
+        : marginTop === 'small'
+          ? 'mt-[80px]'
+          : 'mt-[168px]' // default
+
+  // Padding top mapping
+  const paddingTopClass =
+    paddingTop === 'none'
+      ? 'py-0'
+      : paddingTop === 'compressed'
+        ? 'py-[40px]'
+        : paddingTop === 'expanded'
+          ? 'py-[103px]'
+          : 'py-[0px]' // default
+
+  console.log(gapSize)
+  // Gap mapping
+  const gapClass =
+    gapSize === 'gap-[93px]'
+      ? 'gap-[93px]'
+      : gapSize === 'gap-[115px]'
+        ? 'gap-[115px]'
+        : 'gap-[115px]' // default
+
+  return (
+    <section className={`w-full relative ${bgClass} ${marginTopClass} ${paddingTopClass}`}>
+      {/* SVG Curve Background */}
+      {showCurve && (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none"
+          viewBox="0 0 1446 614"
+          fill="none"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0 0H1446L1446 497.744C926.662 630.175 264.689 624.678 0 600.294V0Z"
+            fill="#1E1C1C"
+          />
+        </svg>
+      )}
+
+      {/* Content */}
+      <div className={`relative mx-auto flex px-[124px] ${gapClass} z-10`}>
+        {leftText && (
+          <RichText
+            data={leftText}
+            className={`${headingSize} flex-1 font-normal font-libre-baskerville leading-normal text-right`}
+            enableGutter={false}
+          />
+        )}
+
+        {rightText && (
+          <RichText
+            data={rightText}
+            className="w-1/2 font-quicksand text-2xl font-normal leading-9"
+            enableGutter={false}
+          />
+        )}
+      </div>
+      {button && button.text && button.internalPage && (
+        <div className="flex justify-center mt-[50px]">
+          <a
+            href={button.internalPage?.slug || '#'}
+            className={`inline-block px-6 py-[14px] rounded-full text-black font-inter font-normal ${
+              button.style === 'secondary' ? 'bg-gray-500' : 'bg-creme'
+            }`}
+          >
+            {button.text}
+          </a>
+        </div>
+      )}
+    </section>
+  )
+}

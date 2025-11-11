@@ -26,6 +26,26 @@ const config = {
     'border-warning',
     'bg-warning/30',
     'bg-primary-green',
+    'text-primary-green',
+    'text-[#1e1c1c]',
+    'gap-20',
+    'w-40',
+    'w-[400px]',
+    {
+      pattern: /text-(xs|sm|base|lg|xl|2xl|3xl|4xl|5xl)/,
+    },
+    {
+      pattern: /font-(quicksand|libre-baskerville|inter)/,
+    },
+    {
+      pattern: /w-\[?\d+px\]?/,
+    },
+    {
+      pattern: /mt-\[?\d+px\]?/,
+    },
+    {
+      pattern: /gap-\d+/,
+    },
   ],
   theme: {
     extend: {

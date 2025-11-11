@@ -23,6 +23,8 @@ import {
 import { ContentBigBlock } from '@/blocks/ContentBig/config'
 import { GalleryBlock } from '@/blocks/Gallery/config'
 import { ImageWithTextBlock } from '@/blocks/ImageWithText/config'
+import { AboutSectionBlock } from '@/blocks/AboutSection/config'
+import { MuseBlock } from '@/blocks/MuseSectionBlock/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -75,7 +77,18 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, ContentBigBlock, GalleryBlock, ImageWithTextBlock],
+              blocks: [
+                CallToAction,
+                Content,
+                MediaBlock,
+                Archive,
+                FormBlock,
+                ContentBigBlock,
+                GalleryBlock,
+                ImageWithTextBlock,
+                AboutSectionBlock,
+                MuseBlock
+              ],
               required: true,
               admin: {
                 initCollapsed: true,

@@ -15,7 +15,7 @@ export async function Footer() {
   const navItems = footerData?.navItems || []
 
   return (
-    <footer className="mt-auto bg-primary-green py-[49px] px-[56.5px]">
+    <footer className="mt-auto bg-primary-green py-[49px] pl-[56.5px] pr-[173px]">
       <div className="flex">
         <div>
           <Link href="/">

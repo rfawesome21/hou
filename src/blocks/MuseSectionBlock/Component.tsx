@@ -8,7 +8,7 @@ type Media = {
   alt?: string
 }
 
-export interface ImageWithTextProps {
+export interface MuseBlockProps {
   heading?: string
   image: Media | string
   text?: any
@@ -22,10 +22,9 @@ export interface ImageWithTextProps {
     }
     style?: 'primary' | 'secondary'
   }
-  marginTop?: string // New prop for customizing top margin
 }
 
-export const ImageWithTextBlock: React.FC<ImageWithTextProps> = ({
+export const MuseBlock: React.FC<MuseBlockProps> = ({
   heading,
   image,
   text,
@@ -33,12 +32,11 @@ export const ImageWithTextBlock: React.FC<ImageWithTextProps> = ({
   richText,
   backgroundColor = 'bg-white',
   button,
-  marginTop = 'mt-[107px]', // Default margin-top
 }) => {
   const img = typeof image === 'string' ? null : image
 
   return (
-    <div className={`${backgroundColor} w-full ${marginTop}`}>
+    <div className={`bg-creme pt-5 w-full`}>
       <div
         className={`flex flex-col md:flex-row items-center gap-16 ${
           imagePosition === 'right' ? 'md:flex-row-reverse' : ''
@@ -49,30 +47,31 @@ export const ImageWithTextBlock: React.FC<ImageWithTextProps> = ({
             <Image
               src={img.url}
               alt={img.alt || ''}
-              width={711}
-              height={951}
+              width={699}
+              height={1101}
               className="w-full h-auto rounded-md"
             />
           </div>
         )}
         <div
           className={`flex flex-col ${
-            imagePosition === 'right' ? 'ml-[147px] w-[522px]' : 'mr-[147px] w-[522px]'
+            imagePosition === 'right' ? 'ml-[147px] w-[542.4px]' : 'mr-[147px] w-[544px]'
           }`}
         >
           {heading && (
             <h2
-              className={`text-white font-libre-baskerville text-5xl tracking-[-0.96px] leading-normal w-[382px] ${
+              className={`font-libre-baskerville text-[64px] leading-normal text-primary-green w-[450px] ${
                 imagePosition === 'right' ? 'text-right ml-auto' : 'text-left mr-auto'
               } overflow-hidden`}
             >
               {heading}
             </h2>
           )}
+          <div className='h-1 w-[462px] bg-primary-green ml-auto' />
           {richText && (
             <RichText
               data={richText}
-              className={`font-quicksand text-creme text-2xl leading-[150%] mt-[30px] ${
+              className={`font-quicksand font-normal text-background text-[22px] leading-[150%] mt-[30px] ${
                 imagePosition === 'right' ? 'text-right' : 'text-left'
               }`}
               enableGutter={false}

@@ -240,6 +240,81 @@ export interface Page {
         blockName?: string | null;
         blockType: 'imageWithTextBlock';
       }
+    | {
+        leftText: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        rightText: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        headingSize: 'text-[36px]' | 'text-[48px]' | 'text-[56px]' | 'text-[64px]' | 'text-[72px]' | 'text-[80px]';
+        marginTop?: ('none' | 'small' | 'default' | 'large') | null;
+        paddingTop?: ('none' | 'compressed' | 'expanded' | 'default') | null;
+        showCurve?: boolean | null;
+        backgroundColor: 'white' | 'black' | 'creme';
+        gapSize: 'gap-[93px]' | 'gap-[115px]' | 'gap-[140px]' | 'gap-[168px]';
+        button?: {
+          text?: string | null;
+          internalPage?: (number | null) | Page;
+          style?: ('primary' | 'secondary') | null;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'aboutSection';
+      }
+    | {
+        heading?: string | null;
+        image: number | Media;
+        richText?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        imagePosition: 'left' | 'right';
+        backgroundColor?: string | null;
+        button?: {
+          text?: string | null;
+          internalPage?: (number | null) | Page;
+          style?: ('primary' | 'secondary') | null;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'museBlock';
+      }
   )[];
   meta?: {
     title?: string | null;
@@ -1151,6 +1226,45 @@ export interface PagesSelect<T extends boolean = true> {
               blockName?: T;
             };
         imageWithTextBlock?:
+          | T
+          | {
+              heading?: T;
+              image?: T;
+              richText?: T;
+              imagePosition?: T;
+              backgroundColor?: T;
+              button?:
+                | T
+                | {
+                    text?: T;
+                    internalPage?: T;
+                    style?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        aboutSection?:
+          | T
+          | {
+              leftText?: T;
+              rightText?: T;
+              headingSize?: T;
+              marginTop?: T;
+              paddingTop?: T;
+              showCurve?: T;
+              backgroundColor?: T;
+              gapSize?: T;
+              button?:
+                | T
+                | {
+                    text?: T;
+                    internalPage?: T;
+                    style?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        museBlock?:
           | T
           | {
               heading?: T;

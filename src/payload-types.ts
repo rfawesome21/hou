@@ -315,6 +315,60 @@ export interface Page {
         blockName?: string | null;
         blockType: 'museBlock';
       }
+    | {
+        heading?: string | null;
+        /**
+         * Add custom classes for the heading, e.g., "text-4xl font-bold text-red-500"
+         */
+        headingClasses?: string | null;
+        image: number | Media;
+        richText?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        imagePosition: 'left' | 'right';
+        backgroundColor?: string | null;
+        button?: {
+          text?: string | null;
+          internalPage?: (number | null) | Page;
+          style?: ('primary' | 'secondary') | null;
+        };
+        accordions?:
+          | {
+              title: string;
+              content?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: any;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'imageWithContent';
+      }
   )[];
   meta?: {
     title?: string | null;
@@ -1278,6 +1332,32 @@ export interface PagesSelect<T extends boolean = true> {
                     text?: T;
                     internalPage?: T;
                     style?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        imageWithContent?:
+          | T
+          | {
+              heading?: T;
+              headingClasses?: T;
+              image?: T;
+              richText?: T;
+              imagePosition?: T;
+              backgroundColor?: T;
+              button?:
+                | T
+                | {
+                    text?: T;
+                    internalPage?: T;
+                    style?: T;
+                  };
+              accordions?:
+                | T
+                | {
+                    title?: T;
+                    content?: T;
+                    id?: T;
                   };
               id?: T;
               blockName?: T;

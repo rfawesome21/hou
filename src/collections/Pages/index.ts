@@ -25,6 +25,7 @@ import { GalleryBlock } from '@/blocks/Gallery/config'
 import { ImageWithTextBlock } from '@/blocks/ImageWithText/config'
 import { AboutSectionBlock } from '@/blocks/AboutSection/config'
 import { MuseBlock } from '@/blocks/MuseSectionBlock/config'
+import { ImageWithContentBlock } from '@/blocks/ImageWithContent/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -87,7 +88,8 @@ export const Pages: CollectionConfig<'pages'> = {
                 GalleryBlock,
                 ImageWithTextBlock,
                 AboutSectionBlock,
-                MuseBlock
+                MuseBlock,
+                ImageWithContentBlock
               ],
               required: true,
               admin: {

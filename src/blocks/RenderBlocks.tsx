@@ -12,6 +12,7 @@ import { GalleryBlock } from './Gallery/Component'
 import { ImageWithTextBlock } from './ImageWithText/Component'
 import { aboutSectionBlock } from './AboutSection/Component'
 import { MuseBlock } from './MuseSectionBlock/Component'
+import { ImageWithContentBlock } from './ImageWithContent/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -23,7 +24,8 @@ const blockComponents = {
   galleryBlock: GalleryBlock,
   imageWithTextBlock: ImageWithTextBlock,
   aboutSection: aboutSectionBlock,
-  museBlock: MuseBlock
+  museBlock: MuseBlock,
+  imageWithContent: ImageWithContentBlock
 }
 
 export const RenderBlocks: React.FC<{

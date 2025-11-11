@@ -83,6 +83,7 @@ const config = {
         'inter-medium': ['"Inter Medium"', 'sans-serif'],
         'quicksand': ['Quicksand', 'sans-serif'],
         'libre-baskerville': ['"Libre Baskerville"', 'serif'],
+        'source-serif-pro': ['"Source Serif Pro"', 'serif'],
       },
       keyframes: {
         'accordion-down': {

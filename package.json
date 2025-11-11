@@ -25,6 +25,7 @@
     "@fontsource/inter": "^5.2.8",
     "@fontsource/libre-baskerville": "^5.2.8",
     "@fontsource/quicksand": "^5.2.10",
+    "@fontsource/source-serif-pro": "^5.2.5",
     "@payloadcms/admin-bar": "3.61.1",
     "@payloadcms/db-postgres": "3.61.1",
     "@payloadcms/live-preview-react": "3.61.1",

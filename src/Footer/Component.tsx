@@ -28,7 +28,7 @@ export async function Footer() {
           <Link
             href={'https://www.instagram.com/houseofkaia'}
             target="_blank"
-            className="flex mt-3 space-x-[5px] text-creme text-[13px] font-quicksand leading-[19.5px] items-center"
+            className="flex mt-3 space-x-[5px] text-creme text-[13px] font-quicksand leading-[19.5px] items-center font-light"
           >
             <Image src={'/icons/instagram.svg'} alt="Instagram" width={28} height={28} />
             <span>@houseofkaia</span>
@@ -36,28 +36,50 @@ export async function Footer() {
           <Link
             href={'mailto:studio@houseofkaiajewellery.com'}
             target="_blank"
-            className="flex mt-3 space-x-[5px] text-creme text-[13px] font-quicksand leading-[19.5px] items-center"
+            className="flex mt-3 space-x-[5px] text-creme text-[13px] font-quicksand leading-[19.5px] items-center font-light"
           >
             <Image src={'/icons/mail.svg'} alt="Email" width={28} height={28} />
             <span>studio@houseofkaiajewellery.com</span>
           </Link>
         </div>
-        <div className='ml-auto'>
-          <h1 className='text-white text-base font-libre-baskerville leading-[24px]'>House of Kaia</h1>
+        <div className="ml-auto">
+          <h1 className="text-white text-base font-libre-baskerville leading-[24px]">
+            House of Kaia
+          </h1>
           <nav className="flex flex-col mt-6 space-y-6">
-            {navItems.slice(0,3).map(({ link }, i) => {
-              return <CMSLink key={i} {...link} appearance="link" className='text-white text-base font-quicksand font-medium leading-[24px]' />
+            {navItems.slice(0, 3).map(({ link }, i) => {
+              return (
+                <CMSLink
+                  key={i}
+                  {...link}
+                  appearance="link"
+                  className="text-white text-base font-quicksand font-medium leading-[24px]"
+                />
+              )
             })}
           </nav>
         </div>
-        <div className='ml-[107px]'>
-          <h1 className='text-white text-base font-libre-baskerville leading-[24px]'>Links</h1>
+        <div className="ml-[107px]">
+          <h1 className="text-white text-base font-libre-baskerville leading-[24px]">Links</h1>
           <nav className="flex flex-col mt-6 space-y-6">
             {navItems.slice(3).map(({ link }, i) => {
-              return <CMSLink key={i} {...link} appearance="link" className='text-white text-base font-quicksand leading-[24px]' />
+              return (
+                <CMSLink
+                  key={i}
+                  {...link}
+                  appearance="link"
+                  className="text-white text-base font-quicksand leading-[24px]"
+                />
+              )
             })}
           </nav>
         </div>
+      </div>
+      <div className="mt-[50px] flex justify-center items-center">
+        <p className="font-source-serif-pro leading-[150%] text-creme">
+          <span className="font-normal">Designed with soul </span>
+          <span className="font-light">for House of Kaia, {new Date().getFullYear()}</span>
+        </p>
       </div>
     </footer>
   )

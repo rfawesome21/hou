@@ -1,10 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "@fontsource/inter/400.css"; /* 500 = Medium */
+@import "@fontsource/inter/400.css"; /* 400 = Regular */
 @import "@fontsource/inter/500.css"; /* 500 = Medium */
+@import "@fontsource/quicksand/300.css"; /* 300 = Light */
 @import "@fontsource/quicksand/400.css"; /* 400 = Regular */
 @import "@fontsource/libre-baskerville/400.css"; /* 400 = Regular */
+@import "@fontsource/source-serif-pro/400.css"; /* 400 = Regular */
+@import "@fontsource/source-serif-pro/300.css"; /* 300 = Light */
+@import "@fontsource/source-serif-pro/600.css"; /* 600 = SemiBold */
+@import "@fontsource/source-serif-pro/700.css"; /* 700 = Bold */
 
 @layer base {
   h1,

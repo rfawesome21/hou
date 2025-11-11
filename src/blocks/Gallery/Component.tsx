@@ -76,19 +76,19 @@ export const GalleryBlock: React.FC<GalleryBlockProps> = ({
       {/* Custom arrows below carousel */}
       <div className="hidden md:flex justify-center gap-8 mt-[42px] w-[165px] mx-auto">
         <button
-          className="w-12 h-12 flex items-center justify-center bg-creme rounded-full"
+          className="w-[66px] h-[66px] flex items-center justify-center bg-creme rounded-full"
           onClick={() => swiperRef.current?.slidePrev()}
           aria-label="Previous Slide"
         >
-          <Image src="/icons/left-arrow.svg" alt="Previous" width={24} height={24} />
+          <Image src="/icons/left-arrow.svg" alt="Previous" width={34} height={34} />
         </button>
 
         <button
-          className="w-12 h-12 flex items-center justify-center bg-creme rounded-full"
+          className="w-[66px] h-[66px] flex items-center justify-center bg-creme rounded-full"
           onClick={() => swiperRef.current?.slideNext()}
           aria-label="Next Slide"
         >
-          <Image src="/icons/right-arrow.svg" alt="Next" width={24} height={24} />
+          <Image src="/icons/right-arrow.svg" alt="Next" width={34} height={34} />
         </button>
       </div>
     </div>

@@ -15,7 +15,9 @@ interface AboutSectionProps {
       slug: string
     }
     style?: 'primary' | 'secondary'
-  }
+  },
+  leftTextColor?: string
+  rightTextColor?: string
 }
 
 export const aboutSectionBlock: React.FC<AboutSectionProps> = ({
@@ -28,6 +30,8 @@ export const aboutSectionBlock: React.FC<AboutSectionProps> = ({
   paddingTop = 'default',
   gapSize = 'default', // default gap
   button,
+  leftTextColor = 'text-black',
+  rightTextColor = 'text-black',
 }) => {
   // Background mapping
   const bgClass =
@@ -51,9 +55,10 @@ export const aboutSectionBlock: React.FC<AboutSectionProps> = ({
         ? 'py-[40px]'
         : paddingTop === 'expanded'
           ? 'py-[103px]'
+          : paddingTop === 'medium' ? 
+            'py-[74px]'
           : 'py-[0px]' // default
 
-  console.log(gapSize)
   // Gap mapping
   const gapClass =
     gapSize === 'gap-[93px]'
@@ -85,7 +90,7 @@ export const aboutSectionBlock: React.FC<AboutSectionProps> = ({
         {leftText && (
           <RichText
             data={leftText}
-            className={`${headingSize} flex-1 font-normal font-libre-baskerville leading-normal text-right`}
+            className={`${headingSize} flex-1 font-normal font-libre-baskerville leading-normal text-right ${leftTextColor}`}
             enableGutter={false}
           />
         )}
@@ -93,7 +98,7 @@ export const aboutSectionBlock: React.FC<AboutSectionProps> = ({
         {rightText && (
           <RichText
             data={rightText}
-            className="w-1/2 font-quicksand text-2xl font-normal leading-9"
+            className={`w-1/2 font-quicksand text-2xl font-normal leading-9 ${rightTextColor}`}
             enableGutter={false}
           />
         )}

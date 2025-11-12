@@ -12,9 +12,12 @@ export async function GET(req: Request, { params }: { params: { category: string
     where: {
       categories: { equals: category },
     },
+    limit: 6,
+    page: Number(new URL(req.url).searchParams.get('page')) || 1,
+    sort: 'createdAt_desc',
   })
 
-  return new Response(JSON.stringify(posts.docs), {
+  return new Response(JSON.stringify(posts), {
     headers: { 'Content-Type': 'application/json' },
   })
 }

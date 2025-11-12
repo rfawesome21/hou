@@ -38,7 +38,7 @@ export const MediaBlock: React.FC<Props> = (props) => {
         <div className="relative h-[1185px] overflow-hidden">
           {/* Image */}
           <Media
-            imgClassName="w-full object-cover object-top -translate-y-[100px] h-[1485px]"
+            imgClassName="w-full object-cover h-[1485px]"
             resource={media}
             src={staticImage}
           />

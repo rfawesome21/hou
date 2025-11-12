@@ -14,6 +14,7 @@ import { aboutSectionBlock } from './AboutSection/Component'
 import { MuseBlock } from './MuseSectionBlock/Component'
 import { ImageWithContentBlock } from './ImageWithContent/Component'
 import { ImageBackgroundBlock } from './ImageBackground/Component'
+import { ExploreSectionBlock } from './ExploreSection/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -28,6 +29,7 @@ const blockComponents = {
   museBlock: MuseBlock,
   imageWithContent: ImageWithContentBlock,
   imageTextOverlay: ImageBackgroundBlock,
+  exploreSection: ExploreSectionBlock,
 }
 
 export const RenderBlocks: React.FC<{

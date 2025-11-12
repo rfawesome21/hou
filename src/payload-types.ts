@@ -287,8 +287,10 @@ export interface Page {
         };
         headingSize: 'text-[36px]' | 'text-[48px]' | 'text-[56px]' | 'text-[64px]' | 'text-[72px]' | 'text-[80px]';
         marginTop?: ('none' | 'small' | 'default' | 'large') | null;
-        paddingTop?: ('none' | 'compressed' | 'expanded' | 'default') | null;
+        paddingTop?: ('none' | 'compressed' | 'expanded' | 'medium' | 'default') | null;
         showCurve?: boolean | null;
+        leftTextColor: 'text-black' | 'text-background' | 'text-white' | 'text-creme' | 'text-primary-green';
+        rightTextColor: 'text-black' | 'text-background' | 'text-white' | 'text-creme' | 'text-primary-green';
         backgroundColor: 'white' | 'black' | 'creme';
         gapSize: 'gap-[93px]' | 'gap-[115px]' | 'gap-[140px]' | 'gap-[168px]';
         button?: {
@@ -411,6 +413,21 @@ export interface Page {
         id?: string | null;
         blockName?: string | null;
         blockType: 'imageTextOverlay';
+      }
+    | {
+        heading?: string | null;
+        category: number | Category;
+        /**
+         * Defines how many posts are displayed per row.
+         */
+        columns: number;
+        /**
+         * Choose the background color for this section.
+         */
+        backgroundColor?: ('bg-creme' | 'bg-background' | 'bg-white' | 'bg-black' | 'bg-primary-green') | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'exploreSection';
       }
   )[];
   meta?: {
@@ -1364,6 +1381,8 @@ export interface PagesSelect<T extends boolean = true> {
               marginTop?: T;
               paddingTop?: T;
               showCurve?: T;
+              leftTextColor?: T;
+              rightTextColor?: T;
               backgroundColor?: T;
               gapSize?: T;
               button?:
@@ -1435,6 +1454,16 @@ export interface PagesSelect<T extends boolean = true> {
                     internalPage?: T;
                     style?: T;
                   };
+              id?: T;
+              blockName?: T;
+            };
+        exploreSection?:
+          | T
+          | {
+              heading?: T;
+              category?: T;
+              columns?: T;
+              backgroundColor?: T;
               id?: T;
               blockName?: T;
             };

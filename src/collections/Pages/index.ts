@@ -27,6 +27,7 @@ import { AboutSectionBlock } from '@/blocks/AboutSection/config'
 import { MuseBlock } from '@/blocks/MuseSectionBlock/config'
 import { ImageWithContentBlock } from '@/blocks/ImageWithContent/config'
 import { ImageTextOverlayBlock } from '@/blocks/ImageBackground/config'
+import { ExploreSectionBlock } from '@/blocks/ExploreSection/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -91,7 +92,8 @@ export const Pages: CollectionConfig<'pages'> = {
                 AboutSectionBlock,
                 MuseBlock,
                 ImageWithContentBlock,
-                ImageTextOverlayBlock
+                ImageTextOverlayBlock,
+                ExploreSectionBlock
               ],
               required: true,
               admin: {

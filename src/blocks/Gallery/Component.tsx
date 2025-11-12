@@ -51,8 +51,8 @@ export interface GalleryBlockProps {
 }
 
 const getPostsByCategory = async (categoryId: string) => {
-  const res = await fetch(`/api/posts/${categoryId}`)
-  return await res.json()
+  const res = await fetch(`/api/get-posts/${categoryId}`)
+  return await res.json().then((data) => data.docs)
 }
 
 export const GalleryBlock: React.FC<GalleryBlockProps> = ({

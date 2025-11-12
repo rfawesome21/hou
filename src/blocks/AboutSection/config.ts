@@ -75,8 +75,6 @@ export const AboutSectionBlock: Block = {
       ],
       defaultValue: 'default',
     },
-
-    // ✅ Padding Top Selector
     {
       name: 'paddingTop',
       type: 'select',
@@ -85,20 +83,45 @@ export const AboutSectionBlock: Block = {
         { label: 'None', value: 'none' },
         { label: 'Compressed (40px)', value: 'compressed' },
         { label: 'Expanded (103px)', value: 'expanded' },
+        { label: 'Medium (74px)', value: 'medium' },
         { label: 'Default (40px)', value: 'default' },
       ],
       defaultValue: 'default',
     },
-
-    // ✅ Toggle for SVG curve
     {
       name: 'showCurve',
       label: 'Show Background Curve',
       type: 'checkbox',
       defaultValue: true,
     },
-
-    // ✅ Background Color Selector
+    {
+      name: 'leftTextColor',
+      type: 'select',
+      label: 'Left Text Color',
+      options: [
+        { label: 'Black', value: 'text-black' },
+        { label: 'Off black', value: 'text-background' },
+        { label: 'White', value: 'text-white' },
+        { label: 'Creme', value: 'text-creme' },
+        { label: 'Green', value: 'text-primary-green' },
+      ],
+      defaultValue: 'text-black',
+      required: true,
+    },
+    {
+      name: 'rightTextColor',
+      type: 'select',
+      label: 'Right Text Color',
+      options: [
+        { label: 'Black', value: 'text-black' },
+        { label: 'Off black', value: 'text-background' },
+        { label: 'White', value: 'text-white' },
+        { label: 'Creme', value: 'text-creme' },
+        { label: 'Green', value: 'text-primary-green' },
+      ],
+      defaultValue: 'text-black',
+      required: true,
+    },
     {
       name: 'backgroundColor',
       type: 'select',

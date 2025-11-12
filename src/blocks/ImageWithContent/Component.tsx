@@ -155,7 +155,7 @@ export const ImageWithContentBlock: React.FC<ImageWithContentProps> = ({
             </a>
           )}
 
-          <div className="mt-[100px] z-30">
+          <div className="mt-[150px] z-30">
             <h1 className="leading-[48px] text-[40px] font-libre-baskerville text-primary-green">
               Get in Touch
             </h1>

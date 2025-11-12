@@ -1,17 +1,20 @@
 import type { Metadata } from 'next'
 
+import { cn } from '@/utilities/ui'
 import React from 'react'
 
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
+import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
+import { draftMode } from 'next/headers'
+
+import '../(frontend)/globals.css'
+import { getServerSideURL } from '@/utilities/getURL'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
-import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 
-import './globals.css'
-import { getServerSideURL } from '@/utilities/getURL'
-
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function OurCollectionsLayout({ children }: { children: React.ReactNode }) {
+  const { isEnabled } = await draftMode()
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -22,7 +25,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <Providers>
-          <Header />
+          <Header transparentNavbar />
           {children}
           <Footer />
         </Providers>

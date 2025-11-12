@@ -5,38 +5,54 @@ import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 import type { Header } from '@/payload-types'
-
 import { Logo } from '@/components/Logo/Logo'
 import { HeaderNav } from './Nav'
 
 interface HeaderClientProps {
   data: Header
+  transparentNavbar?: boolean
 }
 
-export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
-  /* Storing the value in a useState to avoid hydration errors */
+export const HeaderClient: React.FC<HeaderClientProps> = ({ data, transparentNavbar }) => {
   const [theme, setTheme] = useState<string | null>(null)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
+  const [scrolled, setScrolled] = useState(false)
 
+  // reset theme when navigating
   useEffect(() => {
     setHeaderTheme(null)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname])
+  }, [pathname, setHeaderTheme])
 
+  // handle header theme updates
   useEffect(() => {
     if (headerTheme && headerTheme !== theme) setTheme(headerTheme)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [headerTheme])
+  }, [headerTheme, theme])
+
+  // scroll listener
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 480)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <header className="px-20   " {...(theme ? { 'data-theme': theme } : {})}>
-      <div className="py-[41px] flex justify-between">
-        <Link href="/">
-          <Logo loading="eager" priority="high" className="invert dark:invert-0" />
-        </Link>
-        <HeaderNav data={data} />
-      </div>
+    <header
+      className={`
+        fixed top-0 left-0 w-full z-20
+        px-20 py-[41px]
+        flex justify-between items-center
+        transition-all duration-500 ease-in-out
+        ${transparentNavbar && !scrolled ? 'bg-transparent' : 'bg-background shadow-sm backdrop-blur-sm'}
+      `}
+    >
+      <Link href="/">
+        <Logo loading="eager" priority="high" className="invert dark:invert-0" />
+      </Link>
+      <HeaderNav data={data} />
     </header>
   )
 }

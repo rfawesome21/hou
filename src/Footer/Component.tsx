@@ -4,7 +4,6 @@ import React from 'react'
 
 import type { Footer } from '@/payload-types'
 
-import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { CMSLink } from '@/components/Link'
 import { Logo } from '@/components/Logo/Logo'
 import Image from 'next/image'
@@ -15,7 +14,7 @@ export async function Footer() {
   const navItems = footerData?.navItems || []
 
   return (
-    <footer className="mt-auto bg-primary-green py-[49px] pl-[56.5px] pr-[173px]">
+    <footer className="mt-auto bg-primary-green py-[49px] pl-[56.5px] pr-[173px] z-10">
       <div className="flex">
         <div>
           <Link href="/">

@@ -200,11 +200,25 @@ export interface Page {
     | ContentBigBlock
     | {
         heading?: string | null;
-        images: {
-          image: number | Media;
-          caption?: string | null;
-          id?: string | null;
-        }[];
+        subheading?: string | null;
+        paddingX?: ('px-0' | 'px-4' | 'px-6' | 'px-8' | 'px-16' | 'px-20') | null;
+        marginTop?: ('mt-[107px]' | 'mt-[120px]' | 'mt-[140px]') | null;
+        displayCategories?: boolean | null;
+        categories?: (number | Category)[] | null;
+        displayPosts?: boolean | null;
+        categoryForPosts?: (number | null) | Category;
+        images?:
+          | {
+              image: number | Media;
+              caption?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        button?: {
+          text?: string | null;
+          internalPage?: (number | null) | Page;
+          style?: ('primary' | 'secondary') | null;
+        };
         autoPlay?: boolean | null;
         autoPlaySpeed?: number | null;
         id?: string | null;
@@ -368,6 +382,35 @@ export interface Page {
         id?: string | null;
         blockName?: string | null;
         blockType: 'imageWithContent';
+      }
+    | {
+        image: number | Media;
+        heading?: string | null;
+        richText?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        textAlignment: 'left' | 'center' | 'right';
+        backgroundColor?: string | null;
+        button?: {
+          text?: string | null;
+          internalPage?: (number | null) | Page;
+          style?: ('primary' | 'secondary') | null;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'imageTextOverlay';
       }
   )[];
   meta?: {
@@ -537,6 +580,7 @@ export interface Media {
 export interface Category {
   id: number;
   title: string;
+  image?: (number | null) | Media;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
@@ -1267,12 +1311,26 @@ export interface PagesSelect<T extends boolean = true> {
           | T
           | {
               heading?: T;
+              subheading?: T;
+              paddingX?: T;
+              marginTop?: T;
+              displayCategories?: T;
+              categories?: T;
+              displayPosts?: T;
+              categoryForPosts?: T;
               images?:
                 | T
                 | {
                     image?: T;
                     caption?: T;
                     id?: T;
+                  };
+              button?:
+                | T
+                | {
+                    text?: T;
+                    internalPage?: T;
+                    style?: T;
                   };
               autoPlay?: T;
               autoPlaySpeed?: T;
@@ -1358,6 +1416,24 @@ export interface PagesSelect<T extends boolean = true> {
                     title?: T;
                     content?: T;
                     id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        imageTextOverlay?:
+          | T
+          | {
+              image?: T;
+              heading?: T;
+              richText?: T;
+              textAlignment?: T;
+              backgroundColor?: T;
+              button?:
+                | T
+                | {
+                    text?: T;
+                    internalPage?: T;
+                    style?: T;
                   };
               id?: T;
               blockName?: T;
@@ -1617,6 +1693,7 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
+  image?: T;
   generateSlug?: T;
   slug?: T;
   parent?: T;

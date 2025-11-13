@@ -72,6 +72,7 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    sizes: Size;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -88,6 +89,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    sizes: SizesSelect<false> | SizesSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -416,6 +418,10 @@ export interface Page {
       }
     | {
         heading?: string | null;
+        /**
+         * Select specific posts to feature in this section. If left empty, posts will be fetched based on the selected category.
+         */
+        posts?: (number | Post)[] | null;
         category: number | Category;
         /**
          * Defines how many posts are displayed per row.
@@ -456,6 +462,13 @@ export interface Post {
   id: number;
   title: string;
   heroImage?: (number | null) | Media;
+  otherImages?:
+    | {
+        image?: (number | null) | Media;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   content: {
     root: {
       type: string;
@@ -482,7 +495,18 @@ export interface Post {
     description?: string | null;
   };
   publishedAt?: string | null;
+  breadcrumbs?:
+    | {
+        label: string;
+        /**
+         * Optional URL the breadcrumb should link to
+         */
+        link?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   authors?: (number | User)[] | null;
+  sizes?: (number | Size)[] | null;
   populatedAuthors?:
     | {
         id?: string | null;
@@ -639,6 +663,16 @@ export interface User {
       }[]
     | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sizes".
+ */
+export interface Size {
+  id: number;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1226,6 +1260,10 @@ export interface PayloadLockedDocument {
         value: number | User;
       } | null)
     | ({
+        relationTo: 'sizes';
+        value: number | Size;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: number | Redirect;
       } | null)
@@ -1461,6 +1499,7 @@ export interface PagesSelect<T extends boolean = true> {
           | T
           | {
               heading?: T;
+              posts?: T;
               category?: T;
               columns?: T;
               backgroundColor?: T;
@@ -1599,6 +1638,13 @@ export interface ContentBigBlockSelect<T extends boolean = true> {
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
   heroImage?: T;
+  otherImages?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
   content?: T;
   relatedPosts?: T;
   categories?: T;
@@ -1610,7 +1656,15 @@ export interface PostsSelect<T extends boolean = true> {
         description?: T;
       };
   publishedAt?: T;
+  breadcrumbs?:
+    | T
+    | {
+        label?: T;
+        link?: T;
+        id?: T;
+      };
   authors?: T;
+  sizes?: T;
   populatedAuthors?:
     | T
     | {
@@ -1759,6 +1813,15 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sizes_select".
+ */
+export interface SizesSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

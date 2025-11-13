@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
+import type { Post, Media } from '@/payload-types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Category } from '@/payload-types'
@@ -11,17 +12,7 @@ type ExploreSectionBlockProps = {
   numberOfColumns?: number
   backgroundColor?: 'bg-creme' | 'bg-background' | 'bg-white' | 'bg-black' | 'bg-primary-green'
   category?: Category
-}
-
-type Post = {
-  id: string
-  title: string
-  slug: string
-  heroImage?: {
-    url: string
-    alt?: string
-  }
-  content?: any
+  posts?: Post[] // optional posts prop
 }
 
 export const ExploreSectionBlock: React.FC<ExploreSectionBlockProps> = ({
@@ -29,22 +20,25 @@ export const ExploreSectionBlock: React.FC<ExploreSectionBlockProps> = ({
   numberOfColumns = 3,
   backgroundColor = 'bg-white',
   category,
+  posts: initialPosts = [],
 }) => {
-  const [posts, setPosts] = useState<Post[]>([])
+    console.log('ExploreSectionBlock rendered with initialPosts:', initialPosts)
+  const [posts, setPosts] = useState<Post[]>(initialPosts)
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(!initialPosts.length) // only loading if no posts passed
   const [loadingMore, setLoadingMore] = useState(false)
 
   const fetchPosts = async (pageNum: number) => {
-    if (!category) return
+    if (!category) return { docs: [], totalPages: 1 }
     const res = await fetch(`/api/get-posts/${category.id}?page=${pageNum}`)
     if (!res.ok) throw new Error('Failed to fetch posts')
     return res.json()
   }
 
   useEffect(() => {
-    if (!category) return
+    // only fetch if no posts were passed
+    if (!category || initialPosts.length) return
     ;(async () => {
       try {
         setLoading(true)
@@ -57,7 +51,7 @@ export const ExploreSectionBlock: React.FC<ExploreSectionBlockProps> = ({
         setLoading(false)
       }
     })()
-  }, [category])
+  }, [category, initialPosts.length])
 
   const handleLoadMore = async () => {
     if (page >= totalPages) return
@@ -98,8 +92,8 @@ export const ExploreSectionBlock: React.FC<ExploreSectionBlockProps> = ({
                   {post.heroImage && (
                     <div className="relative h-[238px] w-[404px]">
                       <Image
-                        src={post.heroImage.url}
-                        alt={post.heroImage.alt || post.title}
+                        src={typeof (post.heroImage as Media)?.url === 'string' ? (post.heroImage as Media).url! : ''}
+                        alt={post.title}
                         fill
                         className="object-cover"
                       />

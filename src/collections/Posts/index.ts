@@ -42,6 +42,7 @@ export const Posts: CollectionConfig<'posts'> = {
     title: true,
     slug: true,
     categories: true,
+    heroImage: true,
     meta: {
       image: true,
       description: true,
@@ -80,6 +81,24 @@ export const Posts: CollectionConfig<'posts'> = {
               name: 'heroImage',
               type: 'upload',
               relationTo: 'media',
+            },
+            {
+              name: 'otherImages',
+              label: 'Other Images',
+              type: 'array',
+              fields: [
+                {
+                  name: 'image',
+                  type: 'upload',
+                  relationTo: 'media',
+                  required: false,
+                },
+                {
+                  name: 'caption',
+                  type: 'text',
+                  required: false,
+                },
+              ],
             },
             {
               name: 'content',
@@ -182,6 +201,27 @@ export const Posts: CollectionConfig<'posts'> = {
       },
     },
     {
+      name: 'breadcrumbs',
+      label: 'Breadcrumbs',
+      type: 'array',
+      required: false,
+      fields: [
+        {
+          name: 'label',
+          type: 'text',
+          required: true,
+        },
+        {
+          name: 'link',
+          type: 'text',
+          required: false,
+          admin: {
+            description: 'Optional URL the breadcrumb should link to',
+          },
+        },
+      ],
+    },
+    {
       name: 'authors',
       type: 'relationship',
       admin: {
@@ -189,6 +229,12 @@ export const Posts: CollectionConfig<'posts'> = {
       },
       hasMany: true,
       relationTo: 'users',
+    },
+    {
+      name: 'sizes',
+      type: 'relationship',
+      relationTo: 'sizes',
+      hasMany: true,
     },
     // This field is only used to populate the user data via the `populateAuthors` hook
     // This is because the `user` collection has access control locked to protect user privacy

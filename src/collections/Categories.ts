@@ -24,7 +24,7 @@ export const Categories: CollectionConfig = {
     {
       name: 'image',
       type: 'upload',
-      relationTo: 'media', // <-- assumes you have a 'media' collection for uploads
+      relationTo: 'media',
       required: false,
       label: 'Category Image',
     },

@@ -1,73 +1,113 @@
 import { formatDateTime } from 'src/utilities/formatDateTime'
 import React from 'react'
 
-import type { Post } from '@/payload-types'
+import type { Post, Media, Size } from '@/payload-types'
 
-import { Media } from '@/components/Media'
 import { formatAuthors } from '@/utilities/formatAuthors'
+import Link from 'next/link'
+import Image from 'next/image'
+import RichText from '@/components/RichText'
 
 export const PostHero: React.FC<{
   post: Post
 }> = ({ post }) => {
-  const { categories, heroImage, populatedAuthors, publishedAt, title } = post
-
-  const hasAuthors =
-    populatedAuthors && populatedAuthors.length > 0 && formatAuthors(populatedAuthors) !== ''
+  const { heroImage, title, breadcrumbs, otherImages, content, sizes } = post
 
   return (
-    <div className="relative -mt-[10.4rem] flex items-end">
-      <div className="z-10 relative lg:grid lg:grid-cols-[1fr_48rem_1fr] text-white pb-8">
-        <div className="col-start-1 col-span-1 md:col-start-2 md:col-span-2">
-          <div className="uppercase text-sm mb-6">
-            {categories?.map((category, index) => {
-              if (typeof category === 'object' && category !== null) {
-                const { title: categoryTitle } = category
+    <div className="relative">
+      <div className="mt-28 px-28 z-20 relative">
+        {breadcrumbs && breadcrumbs.length > 0 && (
+          <div className="text-base font-quicksand text-white leading-8 h-12">
+            {breadcrumbs.map((crumb, index) => (
+              <span key={index}>
+                {crumb.link ? (
+                  <Link href={crumb.link} className="hover:underline">
+                    {crumb.label}
+                  </Link>
+                ) : (
+                  <span>{crumb.label}</span>
+                )}
+                {index < breadcrumbs.length - 1 && ' > '}
+              </span>
+            ))}
+          </div>
+        )}
 
-                const titleToUse = categoryTitle || 'Untitled category'
-
-                const isLast = index === categories.length - 1
-
-                return (
-                  <React.Fragment key={index}>
-                    {titleToUse}
-                    {!isLast && <React.Fragment>, &nbsp;</React.Fragment>}
-                  </React.Fragment>
-                )
-              }
-              return null
-            })}
+        <div className="flex gap-x-14">
+          <div className="flex flex-col relative z-30">
+            <Image
+              src={typeof heroImage === 'object' && heroImage?.url ? heroImage.url : ''}
+              alt={title || 'Post Hero Image'}
+              width={502}
+              height={684}
+              className="object-cover mb-1.5 rounded-[8px] relative z-30"
+            />
+            <div className="flex gap-x-9">
+              {otherImages &&
+                otherImages.length > 0 &&
+                otherImages.map((image, index) => (
+                  <Image
+                    key={index}
+                    src={
+                      typeof image === 'object' &&
+                      image?.image &&
+                      typeof image.image === 'object' &&
+                      'url' in image.image &&
+                      (image.image as Media).url
+                        ? ((image.image as Media).url as string)
+                        : ''
+                    }
+                    alt={title || 'Post Other Image'}
+                    width={142}
+                    height={142}
+                    className="object-cover relative z-30"
+                  />
+                ))}
+            </div>
           </div>
 
-          <div className="">
-            <h1 className="mb-6 text-3xl md:text-5xl lg:text-6xl">{title}</h1>
-          </div>
+          <div className="flex flex-col justify-center relative z-30">
+            <h1 className="text-[64px] text-creme font-libre-baskerville mb-7">{title}</h1>
+            {content && (
+              <RichText className="text-2xl font-quicksand leading-9 text-white" data={content} />
+            )}
 
-          <div className="flex flex-col md:flex-row gap-4 md:gap-16">
-            {hasAuthors && (
-              <div className="flex flex-col gap-4">
-                <div className="flex flex-col gap-1">
-                  <p className="text-sm">Author</p>
-
-                  <p>{formatAuthors(populatedAuthors)}</p>
+            <div className='flex gap-x-7 mt-[71px]'>
+              {/* 👇 moved dropdown here (still visually aligned to creme div) */}
+              {sizes && Array.isArray(sizes) && sizes.length > 0 && (
+                <div className="relative">
+                  <div className="relative inline-block">
+                    <select
+                      className="w-[245px] py-3 h-[55px] rounded-full pl-6 text-base font-inter leading-8 focus:outline-none bg-background text-white appearance-none cursor-pointer relative"
+                      defaultValue=""
+                    >
+                      <option value="">Select your size</option>
+                      {sizes.map((size, index) => (
+                        <option key={index} value={(size as Size)?.id || (size as Size)?.name}>
+                          {(size as Size)?.name}
+                        </option>
+                      ))}
+                    </select>
+                    <Image
+                      src="/icons/arrow_drop_down.svg"
+                      alt="Open"
+                      width={24}
+                      height={24}
+                      className="absolute left-48 top-1/2 -translate-y-1/2 pointer-events-none"
+                    />
+                  </div>
                 </div>
-              </div>
-            )}
-            {publishedAt && (
-              <div className="flex flex-col gap-1">
-                <p className="text-sm">Date Published</p>
-
-                <time dateTime={publishedAt}>{formatDateTime(publishedAt)}</time>
-              </div>
-            )}
+              )}
+              <button className="w-[173px] px-6 py-3 bg-primary-green text-white text-base font-inter leading-8 font-medium rounded-full hover:opacity-90 transition">
+                Please enquire
+              </button>
+            </div>
           </div>
         </div>
       </div>
-      <div className="min-h-[80vh] select-none">
-        {heroImage && typeof heroImage !== 'string' && (
-          <Media fill priority imgClassName="-z-10 object-cover" resource={heroImage} />
-        )}
-        <div className="absolute pointer-events-none left-0 bottom-0 w-full h-1/2 bg-gradient-to-t from-black to-transparent" />
-      </div>
+
+      {/* Creme background stays below visually */}
+      <div className="bg-creme w-full mt-[-380px] lg:h-[438px] pt-10 z-0" />
     </div>
   )
 }

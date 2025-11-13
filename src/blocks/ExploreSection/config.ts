@@ -17,6 +17,17 @@ export const ExploreSectionBlock: Block = {
       },
     },
     {
+      name: 'posts',
+      type: 'relationship',
+      relationTo: 'posts',
+      hasMany: true,
+      required: false,
+      label: 'Posts',
+      admin: {
+        description: 'Select specific posts to feature in this section. If left empty, posts will be fetched based on the selected category.',
+      },
+    },
+    {
       name: 'category',
       type: 'relationship',
       relationTo: 'categories', // replace with your actual categories collection slug

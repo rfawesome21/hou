@@ -42,7 +42,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, transparentNav
   return (
     <header
       className={`
-        fixed top-0 left-0 w-full z-20
+        fixed top-0 left-0 w-full z-50
         px-20 py-[41px]
         flex justify-between items-center
         transition-all duration-500 ease-in-out

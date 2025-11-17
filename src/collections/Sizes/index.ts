@@ -13,6 +13,12 @@ export const Sizes: CollectionConfig = {
   labels: { singular: 'Size', plural: 'Sizes' },
   fields: [
     {
+      name: 'id',
+      type: 'text',
+      required: true,
+      unique: true,
+    },
+    {
       name: 'name',
       type: 'text',
       required: true,

@@ -526,7 +526,7 @@ export interface Post {
       }[]
     | null;
   authors?: (number | User)[] | null;
-  sizes?: (string | Size)[] | null;
+  sizes?: (number | Size)[] | null;
   populatedAuthors?:
     | {
         id?: string | null;
@@ -689,7 +689,7 @@ export interface User {
  * via the `definition` "sizes".
  */
 export interface Size {
-  id: string;
+  id: number;
   name: string;
   updatedAt: string;
   createdAt: string;
@@ -1281,7 +1281,7 @@ export interface PayloadLockedDocument {
       } | null)
     | ({
         relationTo: 'sizes';
-        value: string | Size;
+        value: number | Size;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1854,7 +1854,6 @@ export interface UsersSelect<T extends boolean = true> {
  * via the `definition` "sizes_select".
  */
 export interface SizesSelect<T extends boolean = true> {
-  id?: T;
   name?: T;
   updatedAt?: T;
   createdAt?: T;

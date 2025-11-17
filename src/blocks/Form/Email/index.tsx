@@ -16,7 +16,7 @@ export const Email: React.FC<
 > = ({ name, defaultValue, errors, label, register, required, width }) => {
   return (
     <Width width={width}>
-      <Label htmlFor={name}>
+      <Label htmlFor={name} className='text-white leading-[22.4px] font-normal text-base'>
         {label}
 
         {required && (
@@ -29,6 +29,7 @@ export const Email: React.FC<
         defaultValue={defaultValue}
         id={name}
         type="text"
+        className='rounded-[8px] border border-creme w-[468px] text-white mt-2'
         {...register(name, { pattern: /^\S[^\s@]*@\S+$/, required })}
       />
 

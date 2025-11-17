@@ -25,7 +25,7 @@ export const PostHero: React.FC<{
     // store info and redirect
     localStorage.setItem(
       'enquiryPost',
-      JSON.stringify({ id: post.id, title: post.title, size: selectedSize }),
+      JSON.stringify({ id: post.id, title: post.title, size: selectedSize, image: heroImage, sizes: sizes }),
     )
     window.location.href = '/enquiry'
   }

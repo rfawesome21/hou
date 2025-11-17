@@ -15,7 +15,7 @@ export const Logo = (props: Props) => {
   const priority = priorityFromProps || 'low'
 
   return (
-    /* eslint-disable @next/next/no-img-element */
+     
     <div className='flex space-x-2.5'>
       <Image src={'/logos/hok-logo.svg'} alt='house-of-kaia' width={40} height={58} />
       <Image src={'/logos/hok-text-logo.svg'} alt='house-of-kaia' width={122} height={58} />

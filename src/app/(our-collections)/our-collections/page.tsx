@@ -48,13 +48,11 @@ type Args = {
 export default async function Page({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
   const { slug } = await paramsPromise
-  const decodedSlug = decodeURIComponent(slug)
+  decodeURIComponent(slug)
   const fullSlug = `our-collections`
   const url = '/' + fullSlug
-  
-  let page: RequiredDataFromCollectionSlug<'pages'> | null
 
-  page = await queryPageBySlug({
+  const page = await queryPageBySlug({
     slug: fullSlug,
   })
 

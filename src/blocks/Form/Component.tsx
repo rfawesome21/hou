@@ -42,8 +42,9 @@ export const FormBlock: React.FC<
   } = formMethods
 
   const [isLoading, setIsLoading] = useState(false)
-  const [hasSubmitted, setHasSubmitted] = useState<boolean>()
+  const [hasSubmitted, setHasSubmitted] = useState<boolean>(false)
   const [error, setError] = useState<{ message: string; status?: string } | undefined>()
+  const [showPopup, setShowPopup] = useState(false)
   const router = useRouter()
 
   const onSubmit = useCallback(
@@ -75,29 +76,26 @@ export const FormBlock: React.FC<
           })
 
           const res = await req.json()
-
           clearTimeout(loadingTimerID)
 
           if (req.status >= 400) {
             setIsLoading(false)
-
             setError({
               message: res.errors?.[0]?.message || 'Internal Server Error',
               status: res.status,
             })
-
             return
           }
 
           setIsLoading(false)
           setHasSubmitted(true)
+          localStorage.removeItem('enquiryPost') // clear localStorage
 
           if (confirmationType === 'redirect' && redirect) {
             const { url } = redirect
-
-            const redirectUrl = url
-
-            if (redirectUrl) router.push(redirectUrl)
+            if (url) router.push(url)
+          } else {
+            setShowPopup(true) // show confirmation popup
           }
         } catch (err) {
           console.warn(err)
@@ -118,37 +116,33 @@ export const FormBlock: React.FC<
       {enableIntro && introContent && !hasSubmitted && (
         <RichText className="mb-8 lg:mb-12" data={introContent} enableGutter={false} />
       )}
-      <div className="px-[150px]">
+      <div>
         <FormProvider {...formMethods}>
-          {!isLoading && hasSubmitted && confirmationType === 'message' && (
-            <RichText data={confirmationMessage} />
-          )}
           {isLoading && !hasSubmitted && <p>Loading, please wait...</p>}
           {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
+
           {!hasSubmitted && (
             <form id={formID} onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-4 last:mb-0">
-                {formFromProps &&
-                  formFromProps.fields &&
-                  formFromProps.fields?.map((field, index) => {
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    const Field: React.FC<any> = fields?.[field.blockType as keyof typeof fields]
-                    if (Field) {
-                      return (
-                        <div className="mb-6 last:mb-0" key={index}>
-                          <Field
-                            form={formFromProps}
-                            {...field}
-                            {...formMethods}
-                            control={control}
-                            errors={errors}
-                            register={register}
-                          />
-                        </div>
-                      )
-                    }
-                    return null
-                  })}
+                {formFromProps.fields?.map((field, index) => {
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  const Field: React.FC<any> = fields?.[field.blockType as keyof typeof fields]
+                  if (Field) {
+                    return (
+                      <div className="mb-6 last:mb-0" key={index}>
+                        <Field
+                          form={formFromProps}
+                          {...field}
+                          {...formMethods}
+                          control={control}
+                          errors={errors}
+                          register={register}
+                        />
+                      </div>
+                    )
+                  }
+                  return null
+                })}
               </div>
 
               <Button
@@ -160,6 +154,18 @@ export const FormBlock: React.FC<
                 {submitButtonLabel}
               </Button>
             </form>
+          )}
+
+          {/* Confirmation Popup */}
+          {showPopup && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+              <div className="bg-white p-6 rounded-xl shadow-lg max-w-md w-full text-center">
+                <RichText className='text-primary-green font-quicksand text-base w-64' data={confirmationMessage} />
+                <Button variant="default" className="mt-4" onClick={() => setShowPopup(false)}>
+                  Close
+                </Button>
+              </div>
+            </div>
           )}
         </FormProvider>
       </div>

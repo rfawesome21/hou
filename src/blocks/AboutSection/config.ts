@@ -42,7 +42,7 @@ export const AboutSectionBlock: Block = {
           InlineToolbarFeature(),
         ],
       }),
-      required: true,
+      required: false,
     },
 
     // ✅ Heading Size Selector

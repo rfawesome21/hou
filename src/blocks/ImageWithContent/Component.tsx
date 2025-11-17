@@ -33,8 +33,10 @@ export interface ImageWithContentProps {
   }
   accordions?: AccordionItem[]
   gap?: string // tailwind gap class like gap-[93px]
-  marginTop?: string
+  marginTop?: 'mt-0' | 'mt-[77px]'
   paddingTop?: string
+  showGetInTouch?: boolean
+  imageHeight?: 'h-[1081px]' | 'h-[951px]' // NEW
 }
 
 export const ImageWithContentBlock: React.FC<ImageWithContentProps> = ({
@@ -47,11 +49,12 @@ export const ImageWithContentBlock: React.FC<ImageWithContentProps> = ({
   button,
   accordions = [],
   gap = 'gap-[115px]',
-  marginTop = '',
+  marginTop = 'mt-0',
   paddingTop = 'pt-[0px]',
+  showGetInTouch = true,
+  imageHeight = 'h-[1081px]', // default height
 }) => {
   const img = typeof image === 'string' ? null : image
-
   const [openIndexes, setOpenIndexes] = useState<number[]>([])
 
   const toggleAccordion = (index: number) => {
@@ -68,7 +71,7 @@ export const ImageWithContentBlock: React.FC<ImageWithContentProps> = ({
         }`}
       >
         {img && (
-          <div className="relative w-[699px] h-[1081px] md:w-1/2 z-10">
+          <div className={`relative w-[699px] md:w-1/2 z-10 ${imageHeight}`}>
             <Image src={img.url} alt={img.alt || ''} fill />
           </div>
         )}
@@ -76,9 +79,9 @@ export const ImageWithContentBlock: React.FC<ImageWithContentProps> = ({
         <div className="flex flex-col w-full md:w-1/2">
           {heading && (
             <h2
-              className={`text-[46px] w-[300px] text-white font-libre-baskerville font-normal leading-normal tracking-[-0.92px]  ${
+              className={`text-[46px] w-[300px] text-white font-libre-baskerville font-normal leading-normal tracking-[-0.92px] ${
                 imagePosition === 'right' ? 'text-right' : 'text-left'
-              }`}
+              } ${headingClasses ? headingClasses : ''}`}
             >
               {heading}
             </h2>
@@ -155,37 +158,47 @@ export const ImageWithContentBlock: React.FC<ImageWithContentProps> = ({
             </a>
           )}
 
-          <div className="mt-[150px] z-30">
-            <h1 className="leading-[48px] text-[40px] font-libre-baskerville text-primary-green">
-              Get in Touch
-            </h1>
-            <p className="mt-10 text-xl font-quicksand font-normal leading-[30px] tracking-[0.4px] text-background">
-              Every piece of jewellery starts with a conversation. <br /> Book an appointment with
-              us today.
-            </p>
-            <div className="flex gap-x-5 mt-10">
-              <Link href="mailto:studio@houseofkaia.com" className="flex items-center gap-3">
-                <Image src={'/icons/mail-green.svg'} alt="mail" width={24} height={24} />
-              </Link>
-              <Link href={'https://www.instagram.com/houseofkaia'} target="_blank">
-                <Image src={'/icons/instagram-green.svg'} alt="Instagram" width={24} height={24} />
-              </Link>
-            </div>
-          </div>
+          {showGetInTouch && (
+            <>
+              <div className="mt-[150px] z-30">
+                <h1 className="leading-[48px] text-[40px] font-libre-baskerville text-primary-green">
+                  Get in Touch
+                </h1>
+                <p className="mt-10 text-xl font-quicksand font-normal leading-[30px] tracking-[0.4px] text-background">
+                  Every piece of jewellery starts with a conversation. <br /> Book an appointment
+                  with us today.
+                </p>
+                <div className="flex gap-x-5 mt-10">
+                  <Link href="mailto:studio@houseofkaia.com" className="flex items-center gap-3">
+                    <Image src={'/icons/mail-green.svg'} alt="mail" width={24} height={24} />
+                  </Link>
+                  <Link href={'https://www.instagram.com/houseofkaia'} target="_blank">
+                    <Image
+                      src={'/icons/instagram-green.svg'}
+                      alt="Instagram"
+                      width={24}
+                      height={24}
+                    />
+                  </Link>
+                </div>
+              </div>
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 1446 444"
+                fill="none"
+                className="absolute bottom-0 left-0 w-full h-auto"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M1446 444H-2.99958L-3 81.228C517.415 -11.3017 1180.76 -7.46085 1446 9.5766V444Z"
+                  fill="#E7E3E0"
+                />
+              </svg>
+            </>
+          )}
         </div>
       </div>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1446 444"
-        fill="none"
-        className="absolute bottom-0 left-0 w-full h-auto"
-        preserveAspectRatio="none"
-      >
-        <path
-          d="M1446 444H-2.99958L-3 81.228C517.415 -11.3017 1180.76 -7.46085 1446 9.5766V444Z"
-          fill="#E7E3E0"
-        />
-      </svg>
     </section>
   )
 }

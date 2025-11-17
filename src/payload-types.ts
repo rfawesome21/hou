@@ -272,7 +272,7 @@ export interface Page {
           };
           [k: string]: unknown;
         };
-        rightText: {
+        rightText?: {
           root: {
             type: string;
             children: {
@@ -286,7 +286,7 @@ export interface Page {
             version: number;
           };
           [k: string]: unknown;
-        };
+        } | null;
         headingSize: 'text-[36px]' | 'text-[48px]' | 'text-[56px]' | 'text-[64px]' | 'text-[72px]' | 'text-[80px]';
         marginTop?: ('none' | 'small' | 'default' | 'large') | null;
         paddingTop?: ('none' | 'compressed' | 'expanded' | 'medium' | 'default') | null;
@@ -334,12 +334,21 @@ export interface Page {
         blockType: 'museBlock';
       }
     | {
+        marginTop: 'mt-0' | 'mt-[77px]';
         heading?: string | null;
         /**
          * Add custom classes for the heading, e.g., "text-4xl font-bold text-red-500"
          */
         headingClasses?: string | null;
+        /**
+         * Toggle to show or hide the Get in Touch section at the bottom.
+         */
+        showGetInTouch?: boolean | null;
         image: number | Media;
+        /**
+         * Select the height for the image.
+         */
+        imageHeight: 'h-[1081px]' | 'h-[951px]';
         richText?: {
           root: {
             type: string;
@@ -434,6 +443,17 @@ export interface Page {
         id?: string | null;
         blockName?: string | null;
         blockType: 'exploreSection';
+      }
+    | {
+        marginTop: 'mt-0' | 'mt-[96px]' | 'mt-[150px]';
+        imagePosition: 'left' | 'right';
+        heading?: string | null;
+        subheading?: string | null;
+        image: number | Media;
+        form: number | Form;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'imageWithForm';
       }
   )[];
   meta?: {
@@ -1454,9 +1474,12 @@ export interface PagesSelect<T extends boolean = true> {
         imageWithContent?:
           | T
           | {
+              marginTop?: T;
               heading?: T;
               headingClasses?: T;
+              showGetInTouch?: T;
               image?: T;
+              imageHeight?: T;
               richText?: T;
               imagePosition?: T;
               backgroundColor?: T;
@@ -1503,6 +1526,18 @@ export interface PagesSelect<T extends boolean = true> {
               category?: T;
               columns?: T;
               backgroundColor?: T;
+              id?: T;
+              blockName?: T;
+            };
+        imageWithForm?:
+          | T
+          | {
+              marginTop?: T;
+              imagePosition?: T;
+              heading?: T;
+              subheading?: T;
+              image?: T;
+              form?: T;
               id?: T;
               blockName?: T;
             };

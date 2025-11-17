@@ -14,6 +14,17 @@ export const ImageWithContentBlock: Block = {
     plural: 'Images with Content',
   },
   fields: [
+    {
+      name: 'marginTop',
+      type: 'radio',
+      label: 'Margin Top',
+      required: true,
+      options: [
+        { label: '0px', value: 'mt-0' },
+        { label: '77px', value: 'mt-[77px]' },
+      ],
+      defaultValue: 'mt-0',
+    },
     // Heading
     {
       name: 'heading',
@@ -29,12 +40,36 @@ export const ImageWithContentBlock: Block = {
         description: 'Add custom classes for the heading, e.g., "text-4xl font-bold text-red-500"',
       },
     },
+    {
+      name: 'showGetInTouch',
+      type: 'checkbox',
+      label: 'Show "Get in Touch" Section',
+      required: false,
+      defaultValue: true,
+      admin: {
+        description: 'Toggle to show or hide the Get in Touch section at the bottom.',
+      },
+    },
     // Image
     {
       name: 'image',
       type: 'upload',
       relationTo: 'media',
       required: true,
+    },
+    {
+      name: 'imageHeight',
+      type: 'select',
+      label: 'Image Height',
+      required: true,
+      options: [
+        { label: '1081px', value: 'h-[1081px]' },
+        { label: '951px', value: 'h-[951px]' },
+      ],
+      defaultValue: 'h-[1081px]',
+      admin: {
+        description: 'Select the height for the image.',
+      },
     },
     // Rich Text
     {

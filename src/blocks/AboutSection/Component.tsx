@@ -73,7 +73,7 @@ export const aboutSectionBlock: React.FC<AboutSectionProps> = ({
       {showCurve && (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none"
+          className="absolute top-0 left-0 w-full h-full z-10 pointer-events-none"
           viewBox="0 0 1446 614"
           fill="none"
           preserveAspectRatio="none"
@@ -90,7 +90,7 @@ export const aboutSectionBlock: React.FC<AboutSectionProps> = ({
         {leftText && (
           <RichText
             data={leftText}
-            className={`${headingSize} flex-1 font-normal font-libre-baskerville leading-normal text-right ${leftTextColor}`}
+            className={`w-1/4 ${headingSize} flex-1 font-normal font-libre-baskerville leading-normal text-right ${leftTextColor}`}
             enableGutter={false}
           />
         )}
@@ -98,7 +98,7 @@ export const aboutSectionBlock: React.FC<AboutSectionProps> = ({
         {rightText && (
           <RichText
             data={rightText}
-            className={`w-1/2 font-quicksand text-2xl font-normal leading-9 ${rightTextColor}`}
+            className={`w-[40%] font-quicksand text-2xl font-normal leading-9 ${rightTextColor}`}
             enableGutter={false}
           />
         )}

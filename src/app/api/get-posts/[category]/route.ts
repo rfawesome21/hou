@@ -1,11 +1,16 @@
 import { getPayload } from 'payload'
 import config from '@payload-config'
 
-export async function GET(req: Request, { params }: { params: { category: string } }) {
+interface Params {
+  category: string
+}
+
+export async function GET(req: Request, context: { params: Promise<Params> }) {
   const payload = await getPayload({ config })
 
-  // Await the param value as Next.js requires
-  const category = await params.category
+  const { category } = await context.params
+
+  const page = Number(new URL(req.url).searchParams.get('page')) || 1
 
   const posts = await payload.find({
     collection: 'posts',
@@ -13,7 +18,7 @@ export async function GET(req: Request, { params }: { params: { category: string
       categories: { equals: category },
     },
     limit: 6,
-    page: Number(new URL(req.url).searchParams.get('page')) || 1,
+    page,
     sort: 'createdAt_desc',
   })
 

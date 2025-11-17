@@ -4,7 +4,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
    ALTER TABLE "posts_rels" ALTER COLUMN "sizes_id" SET DATA TYPE integer;
   ALTER TABLE "_posts_v_rels" ALTER COLUMN "sizes_id" SET DATA TYPE integer;
-  ALTER TABLE "sizes" ALTER COLUMN "id" SET DATA TYPE serial;
   ALTER TABLE "payload_locked_documents_rels" ALTER COLUMN "sizes_id" SET DATA TYPE integer;`)
 }
 

@@ -5,18 +5,38 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TYPE "public"."enum_pages_blocks_about_section_left_width" AS ENUM('w-1/4', 'w-[30%]', 'w-1/3', 'w-[40%]', 'w-[45%]', 'w-1/2');
   CREATE TYPE "public"."enum__pages_v_blocks_about_section_left_width" AS ENUM('w-1/4', 'w-[30%]', 'w-1/3', 'w-[40%]', 'w-[45%]', 'w-1/2');
 
+  -- 1) Drop FKs first
+  ALTER TABLE "posts_rels" DROP CONSTRAINT IF EXISTS "posts_rels_sizes_fk";
+  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT IF EXISTS "payload_locked_documents_rels_sizes_fk";
+  ALTER TABLE "_posts_v_rels" DROP CONSTRAINT IF EXISTS "_posts_v_rels_sizes_fk";
+
+  -- 2) Modify columns
   ALTER TABLE "posts_rels"
     ALTER COLUMN "sizes_id" TYPE integer USING "sizes_id"::integer;
 
   ALTER TABLE "_posts_v_rels"
     ALTER COLUMN "sizes_id" TYPE integer USING "sizes_id"::integer;
 
-  ALTER TABLE "sizes"
-    ALTER COLUMN "id" TYPE integer USING "id"::integer;
-
   ALTER TABLE "payload_locked_documents_rels"
     ALTER COLUMN "sizes_id" TYPE integer USING "sizes_id"::integer;
 
+  ALTER TABLE "sizes"
+    ALTER COLUMN "id" TYPE integer USING "id"::integer;
+
+  -- 3) Re-add FKs
+  ALTER TABLE "posts_rels"
+    ADD CONSTRAINT "posts_rels_sizes_fk"
+    FOREIGN KEY ("sizes_id") REFERENCES "sizes" ("id") ON DELETE SET NULL;
+
+  ALTER TABLE "payload_locked_documents_rels"
+    ADD CONSTRAINT "payload_locked_documents_rels_sizes_fk"
+    FOREIGN KEY ("sizes_id") REFERENCES "sizes" ("id") ON DELETE SET NULL;
+
+  ALTER TABLE "_posts_v_rels"
+    ADD CONSTRAINT "_posts_v_rels_sizes_fk"
+    FOREIGN KEY ("sizes_id") REFERENCES "sizes" ("id") ON DELETE SET NULL;
+
+  -- 4) Add new enum columns
   ALTER TABLE "pages_blocks_about_section"
     ADD COLUMN "left_width" "enum_pages_blocks_about_section_left_width" DEFAULT 'w-1/4';
 

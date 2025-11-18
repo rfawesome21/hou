@@ -8,16 +8,19 @@ interface AboutSectionProps {
   showCurve?: boolean
   marginTop?: string
   paddingTop?: string
-  gapSize?: string // New prop for gap
+  gapSize?: string
   button?: {
     text: string
     internalPage?: {
       slug: string
     }
     style?: 'primary' | 'secondary'
-  },
+  }
   leftTextColor?: string
   rightTextColor?: string
+
+  // NEW PROP
+  leftWidth?: string // Tailwind class for width: e.g. "w-1/4", "w-[30%]"
 }
 
 export const aboutSectionBlock: React.FC<AboutSectionProps> = ({
@@ -28,14 +31,21 @@ export const aboutSectionBlock: React.FC<AboutSectionProps> = ({
   showCurve = true,
   marginTop = 'default',
   paddingTop = 'default',
-  gapSize = 'default', // default gap
+  gapSize = 'default',
   button,
   leftTextColor = 'text-black',
   rightTextColor = 'text-black',
+
+  // Default width for left column
+  leftWidth = 'w-1/4',
 }) => {
   // Background mapping
   const bgClass =
-    backgroundColor === 'black' ? 'bg-[#1e1c1c]' : backgroundColor === 'creme' ? 'bg-creme' : 'bg-creme'
+    backgroundColor === 'black'
+      ? 'bg-[#1e1c1c]'
+      : backgroundColor === 'creme'
+        ? 'bg-creme'
+        : 'bg-creme'
 
   // Margin top mapping
   const marginTopClass =
@@ -55,9 +65,9 @@ export const aboutSectionBlock: React.FC<AboutSectionProps> = ({
         ? 'py-[40px]'
         : paddingTop === 'expanded'
           ? 'py-[103px]'
-          : paddingTop === 'medium' ? 
-            'py-[74px]'
-          : 'py-[0px]' // default
+          : paddingTop === 'medium'
+            ? 'py-[74px]'
+            : 'py-[0px]' // default
 
   // Gap mapping
   const gapClass =
@@ -73,7 +83,7 @@ export const aboutSectionBlock: React.FC<AboutSectionProps> = ({
       {showCurve && (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="absolute top-0 left-0 w-full h-full z-10 pointer-events-none"
+          className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none"
           viewBox="0 0 1446 614"
           fill="none"
           preserveAspectRatio="none"
@@ -90,7 +100,7 @@ export const aboutSectionBlock: React.FC<AboutSectionProps> = ({
         {leftText && (
           <RichText
             data={leftText}
-            className={`w-1/4 ${headingSize} flex-1 font-normal font-libre-baskerville leading-normal text-right ${leftTextColor}`}
+            className={`${leftWidth} ${headingSize} font-normal font-libre-baskerville leading-normal text-right ${leftTextColor}`}
             enableGutter={false}
           />
         )}
@@ -103,6 +113,7 @@ export const aboutSectionBlock: React.FC<AboutSectionProps> = ({
           />
         )}
       </div>
+
       {button && button.text && button.internalPage && (
         <div className="flex justify-center mt-[50px]">
           <a

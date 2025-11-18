@@ -288,6 +288,7 @@ export interface Page {
           [k: string]: unknown;
         } | null;
         headingSize: 'text-[36px]' | 'text-[48px]' | 'text-[56px]' | 'text-[64px]' | 'text-[72px]' | 'text-[80px]';
+        leftWidth: 'w-1/4' | 'w-[30%]' | 'w-1/3' | 'w-[40%]' | 'w-[45%]' | 'w-1/2' | 'w-3/4';
         marginTop?: ('none' | 'small' | 'default' | 'large') | null;
         paddingTop?: ('none' | 'compressed' | 'expanded' | 'medium' | 'default') | null;
         showCurve?: boolean | null;
@@ -1436,6 +1437,7 @@ export interface PagesSelect<T extends boolean = true> {
               leftText?: T;
               rightText?: T;
               headingSize?: T;
+              leftWidth?: T;
               marginTop?: T;
               paddingTop?: T;
               showCurve?: T;

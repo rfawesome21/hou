@@ -62,7 +62,25 @@ export const AboutSectionBlock: Block = {
       required: true,
     },
 
-    // ✅ Margin Top Selector
+    // ✅ NEW: Left Column Width Selector
+    {
+      name: 'leftWidth',
+      type: 'select',
+      label: 'Left Column Width',
+      options: [
+        { label: '25% (1/4)', value: 'w-1/4' },
+        { label: '30%', value: 'w-[30%]' },
+        { label: '33% (1/3)', value: 'w-1/3' },
+        { label: '40%', value: 'w-[40%]' },
+        { label: '45%', value: 'w-[45%]' },
+        { label: '50%', value: 'w-1/2' },
+        { label: '75%', value: 'w-3/4' },
+      ],
+      defaultValue: 'w-1/4',
+      required: true,
+    },
+
+    // Margin Top Selector
     {
       name: 'marginTop',
       type: 'select',
@@ -75,6 +93,8 @@ export const AboutSectionBlock: Block = {
       ],
       defaultValue: 'default',
     },
+
+    // Padding Top Selector
     {
       name: 'paddingTop',
       type: 'select',
@@ -88,12 +108,16 @@ export const AboutSectionBlock: Block = {
       ],
       defaultValue: 'default',
     },
+
+    // Show curve toggle
     {
       name: 'showCurve',
       label: 'Show Background Curve',
       type: 'checkbox',
       defaultValue: true,
     },
+
+    // Text colors
     {
       name: 'leftTextColor',
       type: 'select',
@@ -122,6 +146,8 @@ export const AboutSectionBlock: Block = {
       defaultValue: 'text-black',
       required: true,
     },
+
+    // Background color
     {
       name: 'backgroundColor',
       type: 'select',
@@ -135,6 +161,7 @@ export const AboutSectionBlock: Block = {
       required: true,
     },
 
+    // Gap between columns
     {
       name: 'gapSize',
       type: 'select',
@@ -148,6 +175,8 @@ export const AboutSectionBlock: Block = {
       defaultValue: 'gap-[115px]',
       required: true,
     },
+
+    // Button group
     {
       name: 'button',
       type: 'group',

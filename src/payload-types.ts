@@ -289,7 +289,7 @@ export interface Page {
         } | null;
         headingSize: 'text-[36px]' | 'text-[48px]' | 'text-[56px]' | 'text-[64px]' | 'text-[72px]' | 'text-[80px]';
         leftWidth: 'w-1/4' | 'w-[30%]' | 'w-1/3' | 'w-[40%]' | 'w-[45%]' | 'w-1/2' | 'w-3/4';
-        marginTop?: ('none' | 'small' | 'default' | 'large') | null;
+        marginTop?: ('none' | 'small' | 'medium' | 'default' | 'large') | null;
         paddingTop?: ('none' | 'compressed' | 'expanded' | 'medium' | 'default') | null;
         showCurve?: boolean | null;
         leftTextColor: 'text-black' | 'text-background' | 'text-white' | 'text-creme' | 'text-primary-green';

@@ -55,7 +55,9 @@ export const aboutSectionBlock: React.FC<AboutSectionProps> = ({
         ? 'mt-[200px]'
         : marginTop === 'small'
           ? 'mt-[80px]'
-          : 'mt-[168px]' // default
+          : marginTop === 'medium'
+            ? 'mt-[140px]'
+            : 'mt-[168px]' // default
 
   // Padding top mapping
   const paddingTopClass =
@@ -83,13 +85,13 @@ export const aboutSectionBlock: React.FC<AboutSectionProps> = ({
       {showCurve && (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none"
+          className="absolute top-0 left-0 w-full h-full z-10 pointer-events-none"
           viewBox="0 0 1446 614"
           fill="none"
           preserveAspectRatio="none"
         >
           <path
-            d="M0 0H1446L1446 497.744C926.662 630.175 264.689 624.678 0 600.294V0Z"
+            d="M0 0H1446L1446 550C926.662 595 264.689 592 0 580V0Z"
             fill="#1E1C1C"
           />
         </svg>

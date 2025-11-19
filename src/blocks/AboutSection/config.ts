@@ -88,6 +88,7 @@ export const AboutSectionBlock: Block = {
       options: [
         { label: 'None', value: 'none' },
         { label: 'Small (80px)', value: 'small' },
+        { label: 'Medium (140px)', value: 'medium' },
         { label: 'Default (168px)', value: 'default' },
         { label: 'Large (200px)', value: 'large' },
       ],

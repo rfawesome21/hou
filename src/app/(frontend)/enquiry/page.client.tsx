@@ -31,7 +31,7 @@ export default function EnquiryClient() {
   }
 
   return (
-    <div className="mt-[200px] px-40 mb-[60px]">
+    <div className="mt-[200px] mb-[60px]">
       {enquiredProduct && (
         <section>
           <h2 className="text-base font-quicksand font-normal leading-8 text-white mb-2">

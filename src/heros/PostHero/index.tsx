@@ -39,7 +39,7 @@ export const PostHero: React.FC<{
 
   return (
     <div className="relative">
-      <div className="mt-28 px-28 z-20 relative">
+      <div className="mt-[140px] px-28 z-20 relative">
         {breadcrumbs && breadcrumbs.length > 0 && (
           <div className="text-base font-quicksand text-white leading-8 h-12">
             {breadcrumbs.map((crumb, index) => (
@@ -51,7 +51,7 @@ export const PostHero: React.FC<{
                 ) : (
                   <span>{crumb.label}</span>
                 )}
-                {index < breadcrumbs.length - 1 && '>'}
+                {index < breadcrumbs.length - 1 && ' > '}
               </span>
             ))}
           </div>

@@ -46,7 +46,7 @@ export default async function Page() {
   const { hero, layout } = page
 
   return (
-    <article>
+    <article className='px-40'>
       {/* Client component that handles localStorage description */}
       <PageClient />
 

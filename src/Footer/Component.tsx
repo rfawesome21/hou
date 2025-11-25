@@ -30,7 +30,7 @@ export async function Footer() {
             className="flex mt-3 space-x-[5px] text-creme text-[13px] font-quicksand leading-[19.5px] items-center font-light"
           >
             <Image src={'/icons/instagram.svg'} alt="Instagram" width={28} height={28} />
-            <span>@houseofkaia</span>
+            <span>@houseofkaia_</span>
           </Link>
           <Link
             href={'mailto:studio@houseofkaiajewellery.com'}

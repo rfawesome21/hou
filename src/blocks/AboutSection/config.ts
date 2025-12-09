@@ -45,7 +45,6 @@ export const AboutSectionBlock: Block = {
       required: false,
     },
 
-    // ✅ Heading Size Selector
     {
       name: 'headingSize',
       type: 'select',
@@ -62,7 +61,6 @@ export const AboutSectionBlock: Block = {
       required: true,
     },
 
-    // ✅ NEW: Left Column Width Selector
     {
       name: 'leftWidth',
       type: 'select',

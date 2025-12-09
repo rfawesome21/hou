@@ -1,10 +1,9 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import type { Post, Media } from '@/payload-types'
+import type { Post, Media, Category } from '@/payload-types'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Category } from '@/payload-types'
 import RichText from '@/components/RichText'
 
 type ExploreSectionBlockProps = {
@@ -12,7 +11,7 @@ type ExploreSectionBlockProps = {
   numberOfColumns?: number
   backgroundColor?: 'bg-creme' | 'bg-background' | 'bg-white' | 'bg-black' | 'bg-primary-green'
   category?: Category
-  posts?: Post[] // optional posts prop
+  posts?: Post[]
 }
 
 export const ExploreSectionBlock: React.FC<ExploreSectionBlockProps> = ({
@@ -22,11 +21,10 @@ export const ExploreSectionBlock: React.FC<ExploreSectionBlockProps> = ({
   category,
   posts: initialPosts = [],
 }) => {
-    console.log('ExploreSectionBlock rendered with initialPosts:', initialPosts)
   const [posts, setPosts] = useState<Post[]>(initialPosts)
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
-  const [loading, setLoading] = useState(!initialPosts.length) // only loading if no posts passed
+  const [loading, setLoading] = useState(!initialPosts.length)
   const [loadingMore, setLoadingMore] = useState(false)
 
   const fetchPosts = async (pageNum: number) => {
@@ -36,8 +34,8 @@ export const ExploreSectionBlock: React.FC<ExploreSectionBlockProps> = ({
     return res.json()
   }
 
+  // Fetch only if posts not pre-provided
   useEffect(() => {
-    // only fetch if no posts were passed
     if (!category || initialPosts.length) return
     ;(async () => {
       try {
@@ -45,8 +43,6 @@ export const ExploreSectionBlock: React.FC<ExploreSectionBlockProps> = ({
         const data = await fetchPosts(1)
         setPosts(data.docs)
         setTotalPages(data.totalPages)
-      } catch (error) {
-        console.error(error)
       } finally {
         setLoading(false)
       }
@@ -57,22 +53,20 @@ export const ExploreSectionBlock: React.FC<ExploreSectionBlockProps> = ({
     if (page >= totalPages) return
     try {
       setLoadingMore(true)
-      const nextPage = page + 1
-      const data = await fetchPosts(nextPage)
+      const next = page + 1
+      const data = await fetchPosts(next)
       setPosts((prev) => [...prev, ...data.docs])
-      setPage(nextPage)
-    } catch (error) {
-      console.error(error)
+      setPage(next)
     } finally {
       setLoadingMore(false)
     }
   }
 
   return (
-    <section className={`${backgroundColor} py-[73px]`}>
-      <div className="px-20">
+    <section className={`${backgroundColor} py-[60px] sm:py-[73px]`}>
+      <div className="px-6 sm:px-10 md:px-20">
         {heading && (
-          <h2 className="text-4xl md:text-[32px] font-libre-baskerville leading-[48px] text-white mb-8">
+          <h2 className="text-3xl sm:text-4xl md:text-[32px] font-libre-baskerville leading-[40px] sm:leading-[48px] text-white mb-8">
             {heading}
           </h2>
         )}
@@ -81,44 +75,57 @@ export const ExploreSectionBlock: React.FC<ExploreSectionBlockProps> = ({
           <p className="text-center text-white">Loading...</p>
         ) : posts.length > 0 ? (
           <>
+            {/* RESPONSIVE GRID */}
             <div
-              className={`grid gap-9`}
-              style={{
-                gridTemplateColumns: `repeat(${numberOfColumns}, minmax(0, 1fr))`,
-              }}
+              className="
+                grid gap-9
+                grid-cols-1               /* mobile default = 2 columns */
+                md:grid-cols-[var(--cols)] /* desktop uses dynamic columns */
+              "
+              style={
+                {
+                  '--cols': `repeat(${numberOfColumns}, minmax(0, 1fr))`,
+                } as React.CSSProperties
+              }
             >
-              {posts.map((post) => (
-                <Link href={`/posts/${post.slug}`} key={post.id}>
-                  {post.heroImage && (
-                    <div className="relative h-[238px] w-[404px]">
-                      <Image
-                        src={typeof (post.heroImage as Media)?.url === 'string' ? (post.heroImage as Media).url! : ''}
-                        alt={post.title}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  )}
-                  <div>
-                    <h3 className="mt-6 text-2xl font-libre-baskerville leading-9 text-white">
-                      {post.title}
-                    </h3>
-                    {post.content && (
-                      <RichText
-                        data={post.content}
-                        className="mt-1 lg:text-xl text-creme leading-[150%] font-quicksand"
-                        enableGutter={false}
-                      />
+              {posts.map((post) => {
+                const imgUrl =
+                  typeof (post.heroImage as Media)?.url === 'string'
+                    ? (post.heroImage as Media).url
+                    : ''
+
+                return (
+                  <Link href={`/posts/${post.slug}`} key={post.id}>
+                    {/* Responsive Image Container */}
+                    {imgUrl && (
+                      <div className="relative w-full aspect-[16/10] rounded-md overflow-hidden">
+                        <Image src={imgUrl} alt={post.title} fill className="object-cover" />
+                      </div>
                     )}
-                    <h6 className="mt-1 lg:text-xl text-white leading-[150%] font-quicksand">
-                      Please enquire
-                    </h6>
-                  </div>
-                </Link>
-              ))}
+
+                    <div>
+                      <h3 className="mt-4 text-xl sm:text-2xl font-libre-baskerville leading-8 sm:leading-9 text-white">
+                        {post.title}
+                      </h3>
+
+                      {post.content && (
+                        <RichText
+                          data={post.content}
+                          className="mt-1 text-base sm:text-lg text-creme leading-[150%] font-quicksand"
+                          enableGutter={false}
+                        />
+                      )}
+
+                      <h6 className="mt-1 text-base sm:text-lg text-white leading-[150%] font-quicksand">
+                        Please enquire
+                      </h6>
+                    </div>
+                  </Link>
+                )
+              })}
             </div>
 
-            {/* Load More button */}
+            {/* LOAD MORE BUTTON */}
             {page < totalPages && (
               <div className="text-center mt-12">
                 <button
@@ -132,7 +139,7 @@ export const ExploreSectionBlock: React.FC<ExploreSectionBlockProps> = ({
             )}
           </>
         ) : (
-          <p className="text-center text-gray-500">No posts found.</p>
+          <p className="text-center text-gray-400">No posts found.</p>
         )}
       </div>
     </section>

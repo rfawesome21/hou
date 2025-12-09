@@ -84,7 +84,7 @@ export const ImageWithContentBlock: React.FC<ImageWithContentProps> = ({
             <h2
               className={`
                 text-[32px] sm:text-[40px] md:text-[46px]
-                max-w-full md:w-[300px]
+                max-w-full
                 mx-auto md:mx-0 text-white
                 ${imagePosition === 'right' ? 'md:text-right text-center' : 'md:text-left text-center'}
                 ${headingClasses}

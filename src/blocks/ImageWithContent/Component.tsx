@@ -26,17 +26,15 @@ export interface ImageWithContentProps {
   backgroundColor?: string
   button?: {
     text: string
-    internalPage?: {
-      slug: string
-    }
+    internalPage?: { slug: string }
     style?: 'primary' | 'secondary'
   }
   accordions?: AccordionItem[]
-  gap?: string // tailwind gap class like gap-[93px]
+  gap?: string
   marginTop?: 'mt-0' | 'mt-[77px]'
   paddingTop?: string
   showGetInTouch?: boolean
-  imageHeight?: 'h-[1081px]' | 'h-[951px]' // NEW
+  imageHeight?: 'h-[1081px]' | 'h-[951px]'
 }
 
 export const ImageWithContentBlock: React.FC<ImageWithContentProps> = ({
@@ -52,7 +50,7 @@ export const ImageWithContentBlock: React.FC<ImageWithContentProps> = ({
   marginTop = 'mt-0',
   paddingTop = 'pt-[0px]',
   showGetInTouch = true,
-  imageHeight = 'h-[1081px]', // default height
+  imageHeight = 'h-[1081px]',
 }) => {
   const img = typeof image === 'string' ? null : image
   const [openIndexes, setOpenIndexes] = useState<number[]>([])
@@ -66,41 +64,53 @@ export const ImageWithContentBlock: React.FC<ImageWithContentProps> = ({
   return (
     <section className={`${backgroundColor} w-full relative pb-[42px] ${marginTop} ${paddingTop}`}>
       <div
-        className={`flex flex-col md:flex-row items-start ${gap} ${
-          imagePosition === 'right' ? 'md:flex-row-reverse' : ''
-        }`}
+        className={`
+          flex flex-col md:flex-row items-start ${gap}
+          ${imagePosition === 'right' ? 'md:flex-row-reverse' : ''}
+          px-6 md:px-0
+        `}
       >
+        {/* IMAGE */}
         {img && (
-          <div className={`relative w-[699px] md:w-1/2 z-10 ${imageHeight}`}>
-            <Image src={img.url} alt={img.alt || ''} fill />
+          <div className={`relative w-full md:w-1/2 max-w-full ${imageHeight}`}>
+            <Image src={img.url} alt={img.alt || ''} fill className="object-cover rounded-md" />
           </div>
         )}
 
-        <div className="flex flex-col w-full md:w-1/2">
+        {/* CONTENT COLUMN */}
+        <div className="flex flex-col w-full md:w-1/2 mt-10 md:mt-0">
+          {/* HEADING */}
           {heading && (
             <h2
-              className={`text-[46px] w-[300px] text-white font-libre-baskerville font-normal leading-normal tracking-[-0.92px] ${
-                imagePosition === 'right' ? 'text-right' : 'text-left'
-              } ${headingClasses ? headingClasses : ''}`}
+              className={`
+                text-[32px] sm:text-[40px] md:text-[46px]
+                max-w-full md:w-[300px]
+                mx-auto md:mx-0
+                ${imagePosition === 'right' ? 'md:text-right text-center' : 'md:text-left text-center'}
+                ${headingClasses}
+              `}
             >
               {heading}
             </h2>
           )}
-          <div className="h-px w-[469px] bg-creme mt-[38px] mb-6" />
 
+          {/* UNDERLINE */}
+          <div className="h-px w-[180px] sm:w-[260px] md:w-[469px] bg-creme mt-[38px] mb-6 mx-auto md:mx-0" />
+
+          {/* ACCORDIONS */}
           {accordions.length > 0 && (
-            <div className="w-full">
+            <div className="w-full max-w-full md:w-[469px] mx-auto md:mx-0">
               {accordions.map((acc, index) => {
                 const isOpen = openIndexes.includes(index)
 
                 return (
-                  <div key={index} className="w-[469px] text-wrap">
+                  <div key={index} className="w-full">
                     <button
-                      className="w-full text-left text-3xl text-white font-libre-baskerville flex justify-between items-center"
+                      className="w-full text-left text-2xl sm:text-3xl text-white font-libre-baskerville flex justify-between items-center"
                       onClick={() => toggleAccordion(index)}
                     >
                       <span>{acc.title}</span>
-                      <span className="w-12 h-12 flex items-center justify-center flex-shrink-0">
+                      <span className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center flex-shrink-0">
                         {isOpen ? (
                           <Image src={'/icons/Minus.svg'} alt="Collapse" width={48} height={48} />
                         ) : (
@@ -122,7 +132,7 @@ export const ImageWithContentBlock: React.FC<ImageWithContentProps> = ({
                           <div className="pb-4">
                             <RichText
                               data={acc.content}
-                              className="text-xl text-white font-libre-baskerville my-4"
+                              className="text-lg sm:text-xl text-white font-libre-baskerville my-4"
                               enableGutter={false}
                             />
                           </div>
@@ -137,38 +147,45 @@ export const ImageWithContentBlock: React.FC<ImageWithContentProps> = ({
             </div>
           )}
 
+          {/* RICH TEXT */}
           {richText && (
             <RichText
               data={richText}
-              className={`font-quicksand text-2xl font-normal leading-[150%] mt-6 ${
-                imagePosition === 'right' ? 'text-right' : 'text-left'
-              }`}
+              className={`
+                font-quicksand text-lg sm:text-xl md:text-2xl font-normal leading-[150%] mt-6
+                ${imagePosition === 'right' ? 'md:text-right text-center' : 'md:text-left text-center'}
+              `}
               enableGutter={false}
             />
           )}
 
-          {button && button.text && button.internalPage && (
+          {/* BUTTON */}
+          {button?.text && button.internalPage && (
             <a
-              href={button.internalPage?.slug || '#'}
-              className={`mt-6 inline-block px-6 py-3 rounded-full font-inter font-normal ${
-                button.style === 'secondary' ? 'bg-gray-500' : 'bg-creme'
-              } ${imagePosition === 'right' ? 'ml-auto' : 'mr-auto'}`}
+              href={button.internalPage.slug || '#'}
+              className={`
+                mt-6 inline-block px-6 py-3 rounded-full font-inter font-normal
+                ${button.style === 'secondary' ? 'bg-gray-500' : 'bg-creme'}
+                mx-auto md:${imagePosition === 'right' ? 'ml-auto' : 'mr-auto'}
+              `}
             >
               {button.text}
             </a>
           )}
 
+          {/* GET IN TOUCH SECTION */}
           {showGetInTouch && (
             <>
-              <div className="mt-[150px] z-30">
-                <h1 className="leading-[48px] text-[40px] font-libre-baskerville text-primary-green">
+              <div className="mt-[100px] md:mt-[150px] z-30 text-center md:text-left">
+                <h1 className="leading-[40px] md:leading-[48px] text-[32px] md:text-[40px] font-libre-baskerville text-primary-green">
                   Get in Touch
                 </h1>
-                <p className="mt-10 text-xl font-quicksand font-normal leading-[30px] tracking-[0.4px] text-background">
+                <p className="mt-6 md:mt-10 text-lg md:text-xl font-quicksand leading-[30px] tracking-[0.4px] text-background">
                   Every piece of jewellery starts with a conversation. <br /> Book an appointment
                   with us today.
                 </p>
-                <div className="flex gap-x-5 mt-10">
+
+                <div className="flex justify-center md:justify-start gap-x-5 mt-8 md:mt-10">
                   <Link href="mailto:studio@houseofkaia.com" className="flex items-center gap-3">
                     <Image src={'/icons/mail-green.svg'} alt="mail" width={24} height={24} />
                   </Link>
@@ -187,7 +204,7 @@ export const ImageWithContentBlock: React.FC<ImageWithContentProps> = ({
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 1446 444"
                 fill="none"
-                className="absolute bottom-0 left-0 w-full h-auto"
+                className="absolute bottom-0 left-0 w-full h-[315px] md:h-auto"
                 preserveAspectRatio="none"
               >
                 <path

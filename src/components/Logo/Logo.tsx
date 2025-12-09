@@ -15,10 +15,33 @@ export const Logo = (props: Props) => {
   const priority = priorityFromProps || 'low'
 
   return (
-     
-    <div className='flex space-x-2.5'>
-      <Image src={'/logos/hok-logo.svg'} alt='house-of-kaia' width={40} height={58} />
-      <Image src={'/logos/hok-text-logo.svg'} alt='house-of-kaia' width={122} height={58} />
+    <div
+      className={clsx(
+        'flex items-center space-x-2.5',
+        // prevent the logo from breaking layout on small screens
+        'shrink-0',
+        className
+      )}
+    >
+      {/* ICON */}
+      <Image
+        src="/logos/hok-logo.svg"
+        alt="house-of-kaia"
+        width={40}
+        height={58}
+        loading={loading}
+        className="w-7 sm:w-8 md:w-[40px] h-auto"
+      />
+
+      {/* TEXT LOGO */}
+      <Image
+        src="/logos/hok-text-logo.svg"
+        alt="house-of-kaia"
+        width={122}
+        height={58}
+        loading={loading}
+        className="w-[122px] h-auto"
+      />
     </div>
   )
 }

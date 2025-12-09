@@ -113,7 +113,7 @@ export const GalleryBlock: React.FC<GalleryBlockProps> = ({
         slidesPerView={1}
         spaceBetween={16}
         breakpoints={{
-          640: { slidesPerView: 2, spaceBetween: 16 },
+          640: { slidesPerView: 1, spaceBetween: 8 },
           1024: {
             slidesPerView: displayCategories || categoryForPosts ? 4 : 3.6,
             spaceBetween: 32,
@@ -157,7 +157,7 @@ export const GalleryBlock: React.FC<GalleryBlockProps> = ({
       </Swiper>
 
       {items.length > 4 && (
-        <div className="hidden md:flex justify-center gap-8 mt-[42px] w-[165px] mx-auto">
+        <div className="flex justify-center gap-8 mt-[42px] w-[165px] mx-auto">
           <button
             className="w-[66px] h-[66px] flex items-center justify-center bg-creme rounded-full"
             onClick={() => swiperRef.current?.slidePrev()}

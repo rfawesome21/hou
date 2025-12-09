@@ -22,7 +22,7 @@ export interface ImageWithTextProps {
     }
     style?: 'primary' | 'secondary'
   }
-  marginTop?: string // New prop for customizing top margin
+  marginTop?: string
 }
 
 export const ImageWithTextBlock: React.FC<ImageWithTextProps> = ({
@@ -33,15 +33,17 @@ export const ImageWithTextBlock: React.FC<ImageWithTextProps> = ({
   richText,
   backgroundColor = 'bg-white',
   button,
-  marginTop = 'mt-[107px]', // Default margin-top
+  marginTop = 'mt-[107px]',
 }) => {
   const img = typeof image === 'string' ? null : image
+
+  const isRight = imagePosition === 'right'
 
   return (
     <div className={`${backgroundColor} w-full ${marginTop}`}>
       <div
-        className={`flex flex-col md:flex-row items-center gap-16 ${
-          imagePosition === 'right' ? 'md:flex-row-reverse' : ''
+        className={`flex flex-col md:flex-row items-center gap-10 md:gap-16 ${
+          isRight ? 'md:flex-row-reverse' : ''
         }`}
       >
         {img && (
@@ -55,35 +57,67 @@ export const ImageWithTextBlock: React.FC<ImageWithTextProps> = ({
             />
           </div>
         )}
+
+        {/* TEXT BLOCK */}
         <div
-          className={`flex flex-col ${
-            imagePosition === 'right' ? 'ml-[147px] w-[522px]' : 'mr-[147px] w-[522px]'
-          }`}
+          className={`
+            flex flex-col 
+            w-full 
+            px-6                  /* mobile padding */
+            md:px-0               /* remove padding on desktop */
+            ${isRight ? 'md:ml-[147px] md:w-[522px]' : 'md:mr-[147px] md:w-[522px]'}
+          `}
         >
           {heading && (
             <h2
-              className={`text-white font-libre-baskerville text-5xl tracking-[-0.96px] leading-normal w-[382px] ${
-                imagePosition === 'right' ? 'text-right ml-auto' : 'text-left mr-auto'
-              } overflow-hidden`}
+              className={`
+                font-libre-baskerville 
+                leading-normal 
+                text-white
+                text-3xl           /* mobile */
+                sm:text-4xl 
+                md:text-5xl        /* desktop */
+                tracking-[-0.96px]
+                ${isRight ? 'text-right md:ml-auto' : 'text-left md:mr-auto'}
+              `}
             >
               {heading}
             </h2>
           )}
+
           {richText && (
             <RichText
               data={richText}
-              className={`font-quicksand text-creme text-2xl leading-[150%] mt-[30px] ${
-                imagePosition === 'right' ? 'text-right' : 'text-left'
-              }`}
+              className={`
+                font-quicksand 
+                text-creme 
+                text-base            /* mobile */
+                sm:text-lg 
+                md:text-2xl          /* desktop */
+                leading-[150%] 
+                mt-6
+                ${isRight ? 'text-right' : 'text-left'}
+              `}
               enableGutter={false}
             />
           )}
-          {button && button.text && button.internalPage && (
+
+          {button?.text && button.internalPage && (
             <a
-              href={button.internalPage?.slug || '#'}
-              className={`mt-[50px] inline-block px-6 py-[14px] rounded-full text-black font-inter font-normal ${
-                button.style === 'secondary' ? 'bg-gray-500' : 'bg-creme'
-              } ${imagePosition === 'right' ? 'ml-auto' : 'mr-auto'}`}
+              href={button.internalPage.slug || '#'}
+              className={`
+                mt-10 
+                inline-block 
+                px-6 py-3 md:py-[14px] 
+                rounded-full 
+                text-center
+                text-black 
+                font-inter 
+                !mb-5
+                font-normal 
+                ${button.style === 'secondary' ? 'bg-gray-500' : 'bg-creme'}
+                ${isRight ? 'md:ml-auto' : 'md:mr-auto'}
+              `}
             >
               {button.text}
             </a>

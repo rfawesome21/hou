@@ -42,17 +42,23 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, transparentNav
   return (
     <header
       className={`
-        fixed top-0 left-0 w-full z-50
-        px-20 py-[41px]
-        flex justify-between items-center
-        transition-all duration-500 ease-in-out
-        ${transparentNavbar && !scrolled ? 'bg-transparent' : 'bg-background shadow-sm backdrop-blur-sm'}
-      `}
+    fixed top-0 left-0 w-full z-50
+    px-6 py-4 md:px-20 md:py-[41px]
+    flex items-center justify-between
+    flex-nowrap gap-4
+    transition-all duration-500 ease-in-out
+    ${
+      transparentNavbar && !scrolled ? 'bg-transparent' : 'bg-background shadow-sm backdrop-blur-sm'
+    }
+  `}
     >
-      <Link href="/">
-        <Logo loading="eager" priority="high" className="invert dark:invert-0" />
+      <Link href="/" className="shrink-0">
+        <Logo loading="eager" priority="high" className="invert dark:invert-0 w-16 md:w-auto" />
       </Link>
-      <HeaderNav data={data} />
+
+      <div className="w-full md:w-auto flex justify-end md:justify-center">
+        <HeaderNav data={data} />
+      </div>
     </header>
   )
 }

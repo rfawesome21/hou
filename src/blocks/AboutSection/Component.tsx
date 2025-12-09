@@ -64,10 +64,10 @@ export const aboutSectionBlock: React.FC<AboutSectionProps> = ({
 
   const gapClass =
     gapSize === 'gap-[93px]'
-      ? 'gap-[93px]'
-      : gapSize === 'gap-[115px]'
+      ? 'gap-[43px] md:gap-[93px]'
+      : gapSize === 'gap-[60px] md:gap-[115px]'
         ? 'gap-[115px]'
-        : 'gap-[115px]'
+        : 'gap-[60px] md:gap-[115px]'
 
   return (
     <section className={`w-full relative ${bgClass} ${marginTopClass} ${paddingTopClass}`}>
@@ -88,7 +88,7 @@ export const aboutSectionBlock: React.FC<AboutSectionProps> = ({
         className={`
           relative mx-auto z-10
           flex flex-col md:flex-row
-          px-6 md:px-[124px] mb-32 md:mb-[168px]
+          px-6 md:px-[124px] mb-16 md:mb-[168px]
           ${gapClass}
         `}
       >
